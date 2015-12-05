@@ -1,16 +1,21 @@
 class Piece
 
 types
+		public Colour :: c : seq of char
+		
+		inv colour == colour.c = "White" or colour.c = "Black";
+		
 		public Position :: x : nat
 					y : nat
 		inv p == p.x >= 0 and p.x < 8 and p.y >= 0 and p.y < 8;
 		
 	instance variables 
 		private position : Position;
+		private colour : Colour;
 		
-	operations 
-		public Piece : nat * nat ==> Piece
-			Piece(x,y) == (position := mk_Position(x,y););
+	operations		
+		public Piece : nat * nat * seq of char ==> Piece
+		Piece(x,y,c) == (position := mk_Position(x,y); colour := mk_Colour(c)); 
 			
 		public SetX: nat ==> () 
 			SetX(x) == (position.x := x;); 
@@ -23,5 +28,8 @@ types
 			
 		public GetY : () ==> nat
 			GetY() == (return position.y;);
+					
+		public GetColour : () ==> seq of char
+			GetColour () == return colour.c;
 			
 end Piece
