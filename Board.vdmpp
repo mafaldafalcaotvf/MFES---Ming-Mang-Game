@@ -1,12 +1,50 @@
 class Board
+
 types
--- TODO Define types here
-values
--- TODO Define values here
+	
+	public TypeOfPieces = <White> | <Black> | <BlankSpace>;
+	
+	public Position :: x : nat
+					y : nat
+		inv p == p.x >= 0 and p.x < 8 and p.y >= 0 and p.y < 8;
+		
+
 instance variables
--- TODO Define instance variables here
+	
+	private board : map seq of nat1 to TypeOfPieces := {|->};
+
 operations
--- TODO Define operations here
+
+	public Board : () ==> Board
+  Board() ==
+  (
+  	board := {
+  	  [1,1] |-> <BlankSpace>, [1,4] |-> <BlankSpace>, [1,7] |-> <BlankSpace>,
+  	  [2,2] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,6] |-> <BlankSpace>,
+  	  [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>,
+  	  [4,1] |-> <BlankSpace>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>,
+  	  [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>,
+  	  [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>,
+  	  [6,2] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,6] |-> <BlankSpace>,
+  	  [7,1] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,7] |-> <BlankSpace>
+  	};
+  );
+
+  public reset : () ==> ()
+  reset() ==
+  (
+    board := {
+  	  [1,1] |-> <BlankSpace>, [1,4] |-> <BlankSpace>, [1,7] |-> <BlankSpace>,
+  	  [2,2] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,6] |-> <BlankSpace>,
+  	  [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>,
+  	  [4,1] |-> <BlankSpace>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>,
+  	  [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>,
+  	  [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>,
+  	  [6,2] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,6] |-> <BlankSpace>,
+  	  [7,1] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,7] |-> <BlankSpace>
+  	};
+  );
+
 functions
 -- TODO Define functiones here
 traces
