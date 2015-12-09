@@ -19,14 +19,14 @@ operations
   Board() ==
   (
   	board := {
-  	  [1,1] |-> <BlankSpace>, [1,4] |-> <BlankSpace>, [1,7] |-> <BlankSpace>,
-  	  [2,2] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,6] |-> <BlankSpace>,
-  	  [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>,
-  	  [4,1] |-> <BlankSpace>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>,
-  	  [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>,
-  	  [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>,
-  	  [6,2] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,6] |-> <BlankSpace>,
-  	  [7,1] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,7] |-> <BlankSpace>
+  	  [1,1] |-> <White>, [1,4] |-> <White>, [1,7] |-> <Black>,
+  	  [2,2] |-> <White>, [2,4] |-> <BlankSpace>, [2,6] |-> <Black>,
+  	  [3,3] |-> <White>, [3,4] |-> <BlankSpace>, [3,5] |-> <Black>,
+  	  [4,1] |-> <White>, [4,2] |-> <BlankSpace>, [4,3] |-> <Black>,
+  	  [4,5] |-> <White>, [4,6] |-> <BlankSpace>, [4,7] |-> <Black>,
+  	  [5,3] |-> <White>, [5,4] |-> <BlankSpace>, [5,5] |-> <Black>,
+  	  [6,2] |-> <White>, [6,4] |-> <BlankSpace>, [6,6] |-> <Black>,
+  	  [7,1] |-> <White>, [7,4] |-> <Black>, [7,7] |-> <Black>
   	};
   );
 
@@ -34,17 +34,40 @@ operations
   reset() ==
   (
     board := {
-  	  [1,1] |-> <BlankSpace>, [1,4] |-> <BlankSpace>, [1,7] |-> <BlankSpace>,
-  	  [2,2] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,6] |-> <BlankSpace>,
-  	  [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>,
-  	  [4,1] |-> <BlankSpace>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>,
-  	  [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>,
-  	  [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>,
-  	  [6,2] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,6] |-> <BlankSpace>,
-  	  [7,1] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,7] |-> <BlankSpace>
+  	 [1,1] |-> <White>, [1,4] |-> <White>, [1,7] |-> <Black>,
+  	  [2,2] |-> <White>, [2,4] |-> <BlankSpace>, [2,6] |-> <Black>,
+  	  [3,3] |-> <White>, [3,4] |-> <BlankSpace>, [3,5] |-> <Black>,
+  	  [4,1] |-> <White>, [4,2] |-> <BlankSpace>, [4,3] |-> <Black>,
+  	  [4,5] |-> <White>, [4,6] |-> <BlankSpace>, [4,7] |-> <Black>,
+  	  [5,3] |-> <White>, [5,4] |-> <BlankSpace>, [5,5] |-> <Black>,
+  	  [6,2] |-> <White>, [6,4] |-> <BlankSpace>, [6,6] |-> <Black>,
+  	  [7,1] |-> <White>, [7,4] |-> <Black>, [7,7] |-> <Black>
   	};
   );
 
+	public getPiece : seq of nat1 ==> TypeOfPieces
+	getPiece(coordsXY) ==
+	(
+		return board(coordsXY);
+	)	
+	pre validCoords(coordsXY) and board <> {|->};
+	
+	public getBoard : () ==> map seq of nat1 to TypeOfPieces
+	getBoard() ==
+	(
+		return board; 
+	);
+	
+	pure public validCoords : seq of nat1 ==> bool
+	validCoords(coordsXY) ==
+	(
+		return coordsXY in set dom board;
+	)
+	pre len coordsXY = 2;
+	
+	--public move : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
+	
+	
 functions
 -- TODO Define functiones here
 traces
