@@ -1,12 +1,62 @@
 class MingMang
 types
--- TODO Define types here
+
+	public direcao = <up> | <down> | <left> | <right>;
+
 values
 -- TODO Define values here
 instance variables
--- TODO Define instance variables here
+
+	private board : Board := new Board();
+	private currentColor : Board`TypeOfPiece := <White>;
+	inv currentColor <> <BlankSpace>;
+
 operations
--- TODO Define operations here
+
+	public MingMang : () ==> MingMang
+	MingMang() ==
+	(
+		board := new Board();
+		currentColor := <White>;
+		
+	);
+	
+	public reset : () ==> ()
+	reset() ==
+	(
+		board := new Board();
+		currentColor := <White>;
+	);
+	
+	public movePiece : seq of nat1 * direcao ==> bool
+	movePiece(coord, dir) ==
+	(
+		dcl destC : seq of nat1 := createDestC(coord, dir);
+		if board.canItmove(currentColor, coord, destC) = true
+		then board.movePiece(coord, destC, currentColor)
+		else return false;
+		return true;
+	)
+	pre board.validCoords(coord) and board.validColor(coord, currentColor);
+
+
+	public createDestC : seq of nat1 * direcao ==> seq of nat1
+	createDestC(coord, dir) ==
+	(
+		dcl destC : seq of nat1 := coord;
+		
+		if dir = <up> and destC(1) > 1
+		then destC(1) := destC(1) - 1
+		else if dir = <down> and destC(1) < 8
+		then destC(1) := destC(1) + 1
+		else if dir = <left> and destC(2) > 1
+		then destC(2) := destC(2) - 1
+		else if dir = <right> and destC(2) < 8
+		then destC(2) := destC(2) + 1
+		else destC := [10, 10];
+		
+		return destC;
+	)
 functions
 -- TODO Define functiones here
 traces

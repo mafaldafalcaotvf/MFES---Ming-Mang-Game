@@ -29,7 +29,7 @@ operations
   reset() ==
   (
     board := {
- [1,1] |-> <White>, [1,2] |-> <White>, [1,3] |-> <White>, [1,4] |-> <White>, [1,5] |-> <White>, [1,6] |-> <White>, [1,7] |-> <White>, [1,8] |-> <Black>,
+ 			[1,1] |-> <White>, [1,2] |-> <White>, [1,3] |-> <White>, [1,4] |-> <White>, [1,5] |-> <White>, [1,6] |-> <White>, [1,7] |-> <White>, [1,8] |-> <Black>,
   	  [2,1] |-> <White>, [2,2] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,5] |-> <BlankSpace>, [2,6] |-> <BlankSpace>, [2,7] |-> <BlankSpace>, [2,8] |-> <Black>,
   	 	[3,1] |-> <White>, [3,2] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>, [3,6] |-> <BlankSpace>, [3,7] |-> <BlankSpace>, [3,8] |-> <Black>,
   	  [4,1] |-> <White>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,4] |-> <BlankSpace>, [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>, [4,8] |-> <Black>,
@@ -60,6 +60,14 @@ operations
 	)
 	pre len coordsXY = 2;
 	
+	pure public validColor : seq of nat1 * TypeOfPiece ==> bool
+	validColor(coords, color) ==
+	(
+		if board(coords) = color
+		then return true
+		else return false;
+	);	
+	
 	public canItmove : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
 	canItmove(currentP, pi, pf) ==
 	(
@@ -68,6 +76,14 @@ operations
 		else return false;
 	)
 	pre validCoords(pi) and validCoords(pf);
+	
+	public movePiece : seq of nat1 * seq of nat1 * TypeOfPiece ==> ()
+	movePiece(coord, destC, color) ==
+	(
+		board(coord) := <BlankSpace>;
+		board(destC) := color;
+	)
+	
 	
 	--public moveH : seq of nat1 * seq of nat1 ==> bool
 	--moveH(pi, pf) ==
