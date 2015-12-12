@@ -1,14 +1,34 @@
 class TestBoard
-types
--- TODO Define types here
-values
--- TODO Define values here
+
 instance variables
--- TODO Define instance variables here
+	b: Board := new Board();
+
 operations
--- TODO Define operations here
-functions
--- TODO Define functiones here
+	public AssertTrue : bool ==> ()
+	AssertTrue(a) == return 
+  pre a;
+  
+  public AssertFalse : bool ==> ()
+	AssertFalse(a) == return
+	pre a = false;
+	
+	
+	-- it's returning (), instead of bool :(	
+	public TestValidMove : () ==> bool
+	TestValidMove() == 
+	(
+		dcl board : Board := new Board();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		
+		AssertTrue(board.canItMove(cpW, [1,1], [3,6]));
+		AssertFalse(board.canItMove(cpW, [3,6], [5,9]));
+		AssertTrue(board.canItMove(cpW, [3,6], [5,8]));
+		AssertTrue(board.canItMove(cpW, [5,8], [6,4]));
+		AssertFalse(board.canItMove(cpW, [6,4], [9,1]));
+		AssertTrue(board.canItMove(cpW, [6,4], [2,7]));
+	);
+
 traces
--- TODO Define Combinatorial Test Traces here
+	TestAssertFalse : AssertFalse(false=true);
+	
 end TestBoard

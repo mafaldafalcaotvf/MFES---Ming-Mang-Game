@@ -1,7 +1,7 @@
 class MingMang
 types
 
-	public direcao = <up> | <down> | <left> | <right>;
+	public Direction = <up> | <down> | <left> | <right>;
 
 values
 -- TODO Define values here
@@ -28,19 +28,19 @@ operations
 		currentColor := <White>;
 	);
 	
-	public movePiece : seq of nat1 * direcao ==> bool
+	public movePiece : seq of nat1 * Direction ==> bool
 	movePiece(coord, dir) ==
 	(
 		dcl destC : seq of nat1 := createDestC(coord, dir);
-		if board.canItmove(currentColor, coord, destC) = true
+		if board.canItMove(currentColor, coord, destC) = true
 		then board.movePiece(coord, destC, currentColor)
 		else return false;
 		return true;
 	)
-	pre board.validCoords(coord) and board.validColor(coord, currentColor);
+	pre board.validCoords(coord) and board.validColour(coord, currentColor);
 
 
-	public createDestC : seq of nat1 * direcao ==> seq of nat1
+	public createDestC : seq of nat1 * Direction ==> seq of nat1
 	createDestC(coord, dir) ==
 	(
 		dcl destC : seq of nat1 := coord;

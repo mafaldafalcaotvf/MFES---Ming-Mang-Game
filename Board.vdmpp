@@ -60,47 +60,65 @@ operations
 	)
 	pre len coordsXY = 2;
 	
-	pure public validColor : seq of nat1 * TypeOfPiece ==> bool
-	validColor(coords, color) ==
+	pure public validColour : seq of nat1 * TypeOfPiece ==> bool
+	validColour(coords, colour) ==
 	(
-		if board(coords) = color
+		if board(coords) = colour
 		then return true
 		else return false;
 	);	
-	
-	public canItmove : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
-	canItmove(currentP, pi, pf) ==
+
+	public canItMove : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
+	canItMove(currentP, pi, pf) ==
 	(
 		if board(pi) = currentP and board(pf) = <BlankSpace>
-		then return true--moveH(pi, pf) or moveV(pi, pf)
+		then return moveH(pi, pf) or moveV(pi, pf)
 		else return false;
 	)
-	pre validCoords(pi) and validCoords(pf);
+	pre validCoords(pi) and validCoords(pf) and validColour(pi, currentP);
 	
+	public moveH : seq of nat1 * seq of nat1 ==> bool
+	moveH(pi, pf) ==
+	(
+		if pi(1) = pf(1)
+    then
+    (
+      if pi(1) = 1 or pi(1) = 8
+      then return pi(2) = (pf(2) - 3) or pi(2) = (pf(2) + 3)
+      else if pi(1) = 3 or pi(1) = 6
+      then return pi(2) = (pf(2) - 2) or pi(2) = (pf(2) + 2)
+      else return pi(2) = (pf(2) - 1) or pi(2) = (pf(2) + 1);
+    )
+   	else return false;
+	)
+	pre validCoords(pi) and validCoords(pf);
+
+
+	public moveV : seq of nat1 * seq of nat1 ==> bool
+	moveV(pi, pf) ==
+	(
+		 if pi(2) = pf(2)
+    then
+    (
+      if pi(2) = 1 or pi(2) = 8
+      then return pi(1) = (pf(1) - 3) or pi(1) = (pf(1) + 3)
+      else if pi(2) = 3 or pi(1) = 6
+      then return pi(1) = (pf(1) - 2) or pi(1) = (pf(1) + 2)
+      else return pi(1) = (pf(1) - 1) or pi(1) = (pf(1) + 1);
+    )
+   	else return false;
+	)
+	pre validCoords(pi) and validCoords(pf);
+
 	public movePiece : seq of nat1 * seq of nat1 * TypeOfPiece ==> ()
-	movePiece(coord, destC, color) ==
+	movePiece(coord, pfC, color) ==
 	(
 		board(coord) := <BlankSpace>;
-		board(destC) := color;
-	)
-	
-	
-	--public moveH : seq of nat1 * seq of nat1 ==> bool
-	--moveH(pi, pf) ==
-	--(
-	--	
-	--)
-	--pre board.validCoords(pi) and board.validCoords(pf);
-	--
-	--public moveV : seq of nat1 * seq of nat1 ==> bool
-	--moveV(pi, pf) ==
-	--(
-	--	 
-	--)
-	--pre board.validCoords(pi) and board.validCoords(pf);
+		board(pfC) := color;
+	);
+
 
 functions
 -- TODO Define functiones here
-traces
--- TODO Define Combinatorial Test Traces here
+
 end Board
