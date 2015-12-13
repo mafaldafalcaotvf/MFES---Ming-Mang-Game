@@ -77,34 +77,26 @@ operations
 	)
 	pre validCoords(pi) and validCoords(pf) and validColour(pi, currentP);
 	
-	public moveH : seq of nat1 * seq of nat1 ==> bool
-	moveH(pi, pf) ==
+	public moveV : seq of nat1 * seq of nat1 ==> bool
+	moveV(pi, pf) ==
 	(
 		if pi(1) = pf(1)
     then
     (
-      if pi(1) = 1 or pi(1) = 8
-      then return pi(2) = (pf(2) - 3) or pi(2) = (pf(2) + 3)
-      else if pi(1) = 3 or pi(1) = 6
-      then return pi(2) = (pf(2) - 2) or pi(2) = (pf(2) + 2)
-      else return pi(2) = (pf(2) - 1) or pi(2) = (pf(2) + 1);
+     	return pi(2) = (pf(2) - 1) or pi(2) = (pf(2) + 1);
     )
    	else return false;
 	)
 	pre validCoords(pi) and validCoords(pf);
 
 
-	public moveV : seq of nat1 * seq of nat1 ==> bool
-	moveV(pi, pf) ==
+	public moveH : seq of nat1 * seq of nat1 ==> bool
+	moveH(pi, pf) ==
 	(
 		 if pi(2) = pf(2)
     then
     (
-      if pi(2) = 1 or pi(2) = 8
-      then return pi(1) = (pf(1) - 3) or pi(1) = (pf(1) + 3)
-      else if pi(2) = 3 or pi(1) = 6
-      then return pi(1) = (pf(1) - 2) or pi(1) = (pf(1) + 2)
-      else return pi(1) = (pf(1) - 1) or pi(1) = (pf(1) + 1);
+   		return pi(1) = (pf(1) - 1) or pi(1) = (pf(1) + 1);
     )
    	else return false;
 	)
@@ -116,7 +108,20 @@ operations
 		board(coord) := <BlankSpace>;
 		board(pfC) := color;
 	);
-
+	
+	public pieceCannotBeCapture : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
+	pieceCannotBeCapture(piece, pi, pf) ==
+	(
+		if board(pi) = piece and board(pf) = <BlankSpace>
+		then
+		(
+			if pf <> [1,1] or pf <> [8,1] or pf <> [1,8] or pf <> [8,8]
+			then return canItMove(piece, pi, pf);
+			return false
+		)
+		else return false;
+	)
+	pre validCoords(pi) and validCoords(pf) and validColour(pi, piece);
 
 functions
 -- TODO Define functiones here
