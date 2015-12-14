@@ -40,7 +40,7 @@ operations
   	};
   );
 
-	public getPiece : seq of nat1 ==> TypeOfPiece
+	pure public getPiece : seq of nat1 ==> TypeOfPiece
 	getPiece(coordsXY) ==
 	(
 		return board(coordsXY);
@@ -122,6 +122,103 @@ operations
 		else return false;
 	)
 	pre validCoords(pi) and validCoords(pf) and validColour(pi, piece);
+	
+	public pieceCapturedH : seq of nat1 * seq of nat1 * TypeOfPiece * seq of nat1 ==> ()
+	pieceCapturedH(piece1Coords, piece2Coords, capturedPiece, capturedPieceCoords) ==
+	(
+		dcl cp : TypeOfPiece := capturedPiece;
+		dcl cpCoords : seq of nat1 := capturedPieceCoords;
+		
+		if getPiece(piece1Coords) = getPiece(piece2Coords)
+		then
+		(
+			if (piece1Coords(1) = piece2Coords(1) and piece1Coords(1) = cpCoords(1) and piece2Coords(1) = cpCoords(1))
+			then
+			(
+				if ((piece1Coords(1) = cpCoords(1)-1 or piece2Coords(1) = cpCoords(1)+1) or (piece1Coords(1) = cpCoords(1)-1 or piece2Coords(1) = cpCoords(1)+1))
+				then
+				(
+					cp := getPiece(piece1Coords);
+					
+				) 		
+			) 
+		) 
+		else cp := getPiece(cpCoords);
+	)
+	post getPiece(capturedPieceCoords) = getPiece(piece1Coords) and getPiece(capturedPieceCoords) = getPiece(piece1Coords);
+	
+	
+	public pieceCapturedV : seq of nat1 * seq of nat1 * TypeOfPiece * seq of nat1 ==> ()
+	pieceCapturedV(piece1Coords, piece2Coords, capturedPiece, capturedPieceCoords) ==
+	(
+		dcl cp : TypeOfPiece := capturedPiece;
+		dcl cpCoords : seq of nat1 := capturedPieceCoords;
+		
+		if getPiece(piece1Coords) = getPiece(piece2Coords)
+		then
+		(
+			if (piece1Coords(2) = piece2Coords(2) and piece1Coords(2) = cpCoords(2) and piece2Coords(2) = cpCoords(2))
+			then
+			(
+				if ((piece1Coords(2) = cpCoords(2)-1 or piece2Coords(2) = cpCoords(2)+1) or (piece1Coords(2) = cpCoords(2)-1 or piece2Coords(2) = cpCoords(2)+1))
+				then
+				(
+					cp := getPiece(piece1Coords);
+					
+				) 		
+			) 
+		) 
+		else cp := getPiece(cpCoords);
+	)
+	post getPiece(capturedPieceCoords) = getPiece(piece1Coords) and getPiece(capturedPieceCoords) = getPiece(piece1Coords);
+	
+	
+	public pieceWasCapturedH : TypeOfPiece * TypeOfPiece * TypeOfPiece * seq of nat1 * seq of nat1 * seq of nat1 ==> bool
+	pieceWasCapturedH(piece1, piece2, pieceCaptured, piece1Coords, piece2Coords, pieceCapturedCoords) ==
+	(
+		if getPiece(piece1Coords) = getPiece(piece2Coords)
+		then
+		(
+			if (piece1Coords(1) = piece2Coords(1) and piece1Coords(1) = pieceCapturedCoords(1) and piece2Coords(1) = pieceCapturedCoords(1))
+			then
+			(
+				if ((piece1Coords(1) = pieceCapturedCoords(1)-1 or piece2Coords(1) = pieceCapturedCoords(1)+1) or (piece1Coords(1) = pieceCapturedCoords(1)-1 or piece2Coords(1) = pieceCapturedCoords(1)+1))
+				then
+				(
+					return pieceCaptured = piece1 and pieceCaptured = piece2;
+					
+				) else return false;
+				
+			) else return false; 
+		) 
+		else return false;
+	)
+	pre validCoords(piece1Coords) and validColour(piece1Coords, piece1) and validCoords(piece2Coords) and validColour(piece2Coords, piece1) 
+	and validCoords(pieceCapturedCoords) and validColour(pieceCapturedCoords, piece1);
+	
+	
+	public pieceWasCapturedV : TypeOfPiece * TypeOfPiece * TypeOfPiece * seq of nat1 * seq of nat1 * seq of nat1 ==> bool
+	pieceWasCapturedV(piece1, piece2, pieceCaptured, piece1Coords, piece2Coords, pieceCapturedCoords) ==
+	(
+		if getPiece(piece1Coords) = getPiece(piece2Coords)
+		then
+		(
+			if (piece1Coords(2) = piece2Coords(2) and piece1Coords(2) = pieceCapturedCoords(2) and piece2Coords(2) = pieceCapturedCoords(2))
+			then
+			(
+				if ((piece1Coords(2) = pieceCapturedCoords(2)-1 or piece2Coords(2) = pieceCapturedCoords(2)+1) or (piece1Coords(2) = pieceCapturedCoords(2)-1 or piece2Coords(2) = pieceCapturedCoords(2)+1))
+				then
+				(
+					return pieceCaptured = piece1 and pieceCaptured = piece2;
+					
+				) else return false;
+				
+			) else return false; 
+		) 
+		else return false;
+	)
+	pre validCoords(piece1Coords) and validColour(piece1Coords, piece1) and validCoords(piece2Coords) and validColour(piece2Coords, piece1) 
+	and validCoords(pieceCapturedCoords) and validColour(pieceCapturedCoords, piece1);
 
 functions
 -- TODO Define functiones here
