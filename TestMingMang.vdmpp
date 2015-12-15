@@ -27,6 +27,33 @@ protected assertEqual: ? * ? ==> ()
 		TestMoveWithPiecesBetween();
 		TestConquer();
 		TestReset();
+		TestGameOver();
+	);
+	
+	public TestGameOver : () ==> ()
+	TestGameOver() ==
+	(
+		dcl game : MingMang := new MingMang();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl board : map seq of nat1 to Board`TypeOfPiece := {|->};
+		dcl over : bool;
+		
+		board := {
+  	  [1,1] |-> <White>, [1,2] |-> <White>, [1,3] |-> <White>, [1,4] |-> <White>, [1,5] |-> <White>, [1,6] |-> <White>, [1,7] |-> <White>, [1,8] |-> <White>,
+  	  [2,1] |-> <White>, [2,2] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,5] |-> <BlankSpace>, [2,6] |-> <BlankSpace>, [2,7] |-> <BlankSpace>, [2,8] |-> <White>,
+  	 	[3,1] |-> <White>, [3,2] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>, [3,6] |-> <BlankSpace>, [3,7] |-> <BlankSpace>, [3,8] |-> <White>,
+  	  [4,1] |-> <White>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,4] |-> <BlankSpace>, [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>, [4,8] |-> <White>,
+  	  [5,1] |-> <White>, [5,2] |-> <BlankSpace>, [5,3] |-> <BlankSpace>, [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>, [5,6] |-> <BlankSpace>, [5,7] |-> <BlankSpace>, [5,8] |-> <White>,
+  	  [6,1] |-> <White>, [6,2] |-> <BlankSpace>, [6,3] |-> <BlankSpace>, [6,3] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,5] |-> <BlankSpace>, [6,6] |-> <BlankSpace>, [6,7] |-> <BlankSpace>, [6,8] |-> <White>,
+  	  [7,1] |-> <White>, [7,2] |-> <BlankSpace>, [7,3] |-> <BlankSpace>, [7,3] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,5] |-> <BlankSpace>, [7,6] |-> <BlankSpace>, [7,7] |-> <BlankSpace>, [7,8] |-> <White>,
+  	  [8,1] |-> <White>, [8,2] |-> <White>, [8,3] |-> <White>, [8,3] |-> <White>, [8,4] |-> <White>, [8,5] |-> <White>, [8,6] |-> <White>, [8,7] |-> <White>, [8,8] |-> <White>
+  	};
+  	
+  	over := game.gameOver();
+  	assertEqual(over, true);
+
 	);
 	
 	public TestNewGame : () ==>()
@@ -37,6 +64,7 @@ protected assertEqual: ? * ? ==> ()
 		dcl cpW : Board`TypeOfPiece := <White>;
 		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
 		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl aux : bool ;
 		assertEqual(gameBoard.getPiece([1,1]),cpW);
 		assertEqual(gameBoard.getPiece([1,7]),cpW);
 		assertEqual(gameBoard.getPiece([8,1]),cpW);

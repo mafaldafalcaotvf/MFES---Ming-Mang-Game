@@ -37,6 +37,42 @@ protected assertEqual: ? * ? ==> ()
   TestMoveWithPiecesBetween();
   TestConquer();
   TestReset();
+  TestGameOver();
+ );
+ 
+(*@
+\label{TestGameOver:33}
+@*)
+ public TestGameOver : () ==> ()
+ TestGameOver() ==
+ (
+  dcl game : MingMang := new MingMang();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl board : map seq of nat1 to Board`TypeOfPiece := {|->};
+(*@
+\label{TestGoodMove:41}
+@*)
+(*@
+\label{TestReset:41}
+@*)
+  dcl over : bool;
+  
+  board := {
+     [1,1] |-> <White>, [1,2] |-> <White>, [1,3] |-> <White>, [1,4] |-> <White>, [1,5] |-> <White>, [1,6] |-> <White>, [1,7] |-> <White>, [1,8] |-> <White>,
+     [2,1] |-> <White>, [2,2] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,3] |-> <BlankSpace>, [2,4] |-> <BlankSpace>, [2,5] |-> <BlankSpace>, [2,6] |-> <BlankSpace>, [2,7] |-> <BlankSpace>, [2,8] |-> <White>,
+     [3,1] |-> <White>, [3,2] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,3] |-> <BlankSpace>, [3,4] |-> <BlankSpace>, [3,5] |-> <BlankSpace>, [3,6] |-> <BlankSpace>, [3,7] |-> <BlankSpace>, [3,8] |-> <White>,
+     [4,1] |-> <White>, [4,2] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,3] |-> <BlankSpace>, [4,4] |-> <BlankSpace>, [4,5] |-> <BlankSpace>, [4,6] |-> <BlankSpace>, [4,7] |-> <BlankSpace>, [4,8] |-> <White>,
+     [5,1] |-> <White>, [5,2] |-> <BlankSpace>, [5,3] |-> <BlankSpace>, [5,3] |-> <BlankSpace>, [5,4] |-> <BlankSpace>, [5,5] |-> <BlankSpace>, [5,6] |-> <BlankSpace>, [5,7] |-> <BlankSpace>, [5,8] |-> <White>,
+     [6,1] |-> <White>, [6,2] |-> <BlankSpace>, [6,3] |-> <BlankSpace>, [6,3] |-> <BlankSpace>, [6,4] |-> <BlankSpace>, [6,5] |-> <BlankSpace>, [6,6] |-> <BlankSpace>, [6,7] |-> <BlankSpace>, [6,8] |-> <White>,
+     [7,1] |-> <White>, [7,2] |-> <BlankSpace>, [7,3] |-> <BlankSpace>, [7,3] |-> <BlankSpace>, [7,4] |-> <BlankSpace>, [7,5] |-> <BlankSpace>, [7,6] |-> <BlankSpace>, [7,7] |-> <BlankSpace>, [7,8] |-> <White>,
+     [8,1] |-> <White>, [8,2] |-> <White>, [8,3] |-> <White>, [8,3] |-> <White>, [8,4] |-> <White>, [8,5] |-> <White>, [8,6] |-> <White>, [8,7] |-> <White>, [8,8] |-> <White>
+   };
+   
+   over := game.gameOver();
+   assertEqual(over, true);
+
  );
  
  public TestNewGame : () ==>()
@@ -44,16 +80,14 @@ protected assertEqual: ? * ? ==> ()
  (
   dcl game : MingMang := new MingMang();
   dcl gameBoard : Board := game.getBoard();
+(*@
+\label{TestMoveWithPiecesBetween:64}
+@*)
   dcl cpW : Board`TypeOfPiece := <White>;
   dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
   dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
   assertEqual(gameBoard.getPiece([1,1]),cpW);
-(*@
-\label{TestGoodMove:41}
-@*)
-(*@
-\label{TestReset:41}
-@*)
   assertEqual(gameBoard.getPiece([1,7]),cpW);
   assertEqual(gameBoard.getPiece([8,1]),cpW);
   
@@ -64,6 +98,9 @@ protected assertEqual: ? * ? ==> ()
  (
   dcl game : MingMang := new MingMang();
   game.reset();
+(*@
+\label{TestCanConquer:79}
+@*)
  );
  
  
@@ -74,12 +111,12 @@ protected assertEqual: ? * ? ==> ()
   dcl gameBoard : Board := game.getBoard();
   dcl cpW : Board`TypeOfPiece := <White>;
   dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+(*@
+\label{TestConquer:89}
+@*)
   dcl cpB : Board`TypeOfPiece := <Black>;
   dcl aux : bool ;
   
-(*@
-\label{TestMoveWithPiecesBetween:64}
-@*)
   aux := game.movePiece([1,2],[2,2]);
   assertEqual(gameBoard.getPiece([2,2]),cpW);
   
@@ -95,9 +132,6 @@ protected assertEqual: ? * ? ==> ()
  
  public TestMoveWithPiecesBetween : () ==> ()
  TestMoveWithPiecesBetween() ==
-(*@
-\label{TestCanConquer:79}
-@*)
  (
   dcl game : MingMang := new MingMang(); 
   dcl gameBoard : Board := game.getBoard();
@@ -108,9 +142,6 @@ protected assertEqual: ? * ? ==> ()
   
   aux := game.movePiece([1,4],[5,4]);
   --assertEqual(game.movePiece([5,8],[5,2]),false);
-(*@
-\label{TestConquer:89}
-@*)
  );
  
  
@@ -174,6 +205,8 @@ Function or operation & Line & Coverage & Calls \\
 \hline
 \hyperref[TestConquer:89]{TestConquer} & 89&100.0\% & 1 \\
 \hline
+\hyperref[TestGameOver:33]{TestGameOver} & 33&100.0\% & 1 \\
+\hline
 \hyperref[TestGoodMove:41]{TestGoodMove} & 41&100.0\% & 1 \\
 \hline
 \hyperref[TestMoveWithPiecesBetween:64]{TestMoveWithPiecesBetween} & 64&100.0\% & 1 \\
@@ -182,10 +215,10 @@ Function or operation & Line & Coverage & Calls \\
 \hline
 \hyperref[TestReset:41]{TestReset} & 41&100.0\% & 1 \\
 \hline
-\hyperref[assertEqual:9]{assertEqual} & 9&38.8\% & 13 \\
+\hyperref[assertEqual:9]{assertEqual} & 9&38.8\% & 14 \\
 \hline
 \hline
-TestMingMang.vdmpp & & 96.4\% & 20 \\
+TestMingMang.vdmpp & & 98.3\% & 22 \\
 \hline
 \end{longtable}
 

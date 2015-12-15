@@ -7,7 +7,7 @@ values
 -- TODO Define values here
 instance variables
 
- private board : Board := new Board();
+ public board : Board := new Board();
  public currentColor : Board`TypeOfPiece := <White>;
  inv currentColor <> <BlankSpace>;
 
@@ -45,43 +45,81 @@ operations
   return board;
  );
  
+(*@
+\label{setBoard:35}
+@*)
+
+ 
  
  public movePiece : seq of nat1 * seq of nat1 ==> bool
  movePiece(ci, cf) ==
  ( 
    dcl temp : set of seq of nat1 :={}; 
   if currentColor = <White>
-  then 
-  (
 (*@
 \label{createDestC:43}
 @*)
+  then 
+  (
      if board.movePiece(ci, cf, currentColor) 
      then 
      (
      temp := canConquer(cf);
      conquer(cf,temp);
      changePlayer();
+     
      return true;)
      else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
-    )  
-  else (
-    if board.movePiece(ci, cf, currentColor)
 (*@
 \label{canConquer:54}
 @*)
+    )  
+  else (
+    if board.movePiece(ci, cf, currentColor)
     then(
      temp := canConquer(cf);
     conquer(cf,temp);
     changePlayer();
-    return true;)
-    else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
-     )
 (*@
 \label{changePlayer:61}
 @*)
+    return true;)
+    else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
+     )
 
+(*@
+\label{gameOver:65}
+@*)
  );
+ 
+ public gameOver : () ==> bool
+ gameOver() ==
+ (
+  dcl i : nat1 :=1;
+  dcl j : nat1 :=1;
+  dcl cmp : Board`TypeOfPiece := <BlankSpace>;
+
+  while i<>8 do(
+  while j <> 8 do(
+    if cmp = <BlankSpace>
+   then 
+   (if board.getPiece([i,j]) = <BlankSpace>
+   then (*@\vdmnotcovered{skip}@*)
+   else if board.getPiece([i,j]) = <White>
+   then cmp := <White>
+   else (*@\vdmnotcovered{if}@*) (*@\vdmnotcovered{board}@*).(*@\vdmnotcovered{getPiece}@*)((*@\vdmnotcovered{[}@*)(*@\vdmnotcovered{i}@*),(*@\vdmnotcovered{j}@*)]) (*@\vdmnotcovered{=}@*) (*@\vdmnotcovered{<Black>}@*)
+   then (*@\vdmnotcovered{cmp}@*) := (*@\vdmnotcovered{<Black>}@*))
+
+   else if board.getPiece([i,j]) <> <BlankSpace> and board.getPiece([i,j]) <> cmp
+   then 
+   (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
+   j := j + 1;
+  );
+  i := i + 1;
+  );
+  return true;
+ );
+ 
  
  public changePlayer : () ==> ()
  changePlayer() ==
@@ -109,6 +147,9 @@ operations
   ) 
   else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
  );
+(*@
+\label{recCheckUp:122}
+@*)
  
  public recCheckDown : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
  recCheckDown(coord, notCurrent) ==
@@ -128,6 +169,9 @@ operations
    return recCheckDown(piece, notCurrent)
   ) 
   else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
+(*@
+\label{recCheckDown:141}
+@*)
  );
  
  public recCheckLeft : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
@@ -141,15 +185,15 @@ operations
   
   else if coord(2) = 1 or board.getPiece(coord) = <BlankSpace>
   then return fail
-(*@
-\label{recCheckUp:122}
-@*)
   
   else if board.getPiece(coord) = notCurrent
   then(
    piece(2) := piece(2) - 1;
    return recCheckDown(piece, notCurrent);
   ) 
+(*@
+\label{recCheckLeft:160}
+@*)
   else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
  );
  
@@ -163,15 +207,15 @@ operations
   then (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{coord}@*)
   
   else if coord(2) = 8 or board.getPiece(coord) = <BlankSpace>
-(*@
-\label{recCheckDown:141}
-@*)
   then (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*)
   
   else if board.getPiece(coord) = notCurrent
   then(
    piece(2) := piece(2) + 1;
    return recCheckDown(piece, notCurrent);
+(*@
+\label{recCheckRight:179}
+@*)
   ) 
   else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
  );
@@ -185,9 +229,6 @@ operations
   dcl ret : set of seq of nat1 := {};
   dcl addPiece : seq of nat1 := [];
   dcl piece : seq of nat1 := coord; 
-(*@
-\label{recCheckLeft:160}
-@*)
   
   
   
@@ -207,9 +248,6 @@ operations
      ret := ret union {addPiece};
      )
    )
-(*@
-\label{recCheckRight:179}
-@*)
    else skip;
    piece(1) := piece(1) + 1;
   )
@@ -231,6 +269,9 @@ operations
    piece(1) := piece(1) - 1;
   )
   else (*@\vdmnotcovered{skip}@*);
+(*@
+\label{conquer:232}
+@*)
   
   if piece(2) > 1
   then(
@@ -263,9 +304,6 @@ operations
    piece(2) := piece(2) - 1
   )
   else (*@\vdmnotcovered{skip}@*);
-(*@
-\label{conquer:232}
-@*)
  
  return ret;
  );
@@ -292,7 +330,7 @@ end MingMang
 Function or operation & Line & Coverage & Calls \\
 \hline
 \hline
-\hyperref[MingMang:16]{MingMang} & 16&100.0\% & 5 \\
+\hyperref[MingMang:16]{MingMang} & 16&100.0\% & 6 \\
 \hline
 \hyperref[canConquer:54]{canConquer} & 54&97.8\% & 17 \\
 \hline
@@ -300,7 +338,9 @@ Function or operation & Line & Coverage & Calls \\
 \hline
 \hyperref[conquer:232]{conquer} & 232&100.0\% & 17 \\
 \hline
-\hyperref[createDestC:43]{createDestC} & 43&88.2\% & 6 \\
+\hyperref[createDestC:43]{createDestC} & 43&91.6\% & 12 \\
+\hline
+\hyperref[gameOver:65]{gameOver} & 65&82.8\% & 1 \\
 \hline
 \hyperref[getBoard:30]{getBoard} & 30&100.0\% & 4 \\
 \hline
@@ -316,8 +356,10 @@ Function or operation & Line & Coverage & Calls \\
 \hline
 \hyperref[reset:24]{reset} & 24&100.0\% & 4 \\
 \hline
+\hyperref[setBoard:35]{setBoard} & 35&0.0\% & 0 \\
 \hline
-MingMang.vdmpp & & 95.0\% & 107 \\
+\hline
+MingMang.vdmpp & & 93.2\% & 115 \\
 \hline
 \end{longtable}
 
