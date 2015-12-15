@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nz-BQKLzEeW-SYDS9UuSFw" name="MingMang">
+  <packagedElement xmi:type="uml:Class" xmi:id="_nz-BQaLzEeW-SYDS9UuSFw" name="Board" visibility="public">
+    <ownedAttribute xmi:id="_nz-BQqLzEeW-SYDS9UuSFw" name="board" visibility="private" type="_nz-BbqLzEeW-SYDS9UuSFw" isUnique="false" association="_nz-CMqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-BQ6LzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-BRKLzEeW-SYDS9UuSFw" value="1"/>
+      <qualifier xmi:id="_nz-BRaLzEeW-SYDS9UuSFw" type="_nz-B-aLzEeW-SYDS9UuSFw" isOrdered="true" isUnique="false">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-BRqLzEeW-SYDS9UuSFw"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-BR6LzEeW-SYDS9UuSFw" value="*"/>
+      </qualifier>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_nz-BSKLzEeW-SYDS9UuSFw" value="{|->}"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_nz-BSaLzEeW-SYDS9UuSFw" name="Board" visibility="public">
+      <ownedParameter xmi:id="_nz-BSqLzEeW-SYDS9UuSFw" type="_nz-BQaLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BS6LzEeW-SYDS9UuSFw" name="reset" visibility="public">
+      <ownedParameter xmi:id="_nz-BTKLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BTaLzEeW-SYDS9UuSFw" name="getPiece" visibility="public">
+      <ownedParameter xmi:id="_nz-BTqLzEeW-SYDS9UuSFw" name="coordsXY" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BT6LzEeW-SYDS9UuSFw" type="_nz-BbqLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BUKLzEeW-SYDS9UuSFw" name="validCoords" visibility="public">
+      <ownedParameter xmi:id="_nz-BUaLzEeW-SYDS9UuSFw" name="coordsXY" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BUqLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BU6LzEeW-SYDS9UuSFw" name="validColour" visibility="public">
+      <ownedParameter xmi:id="_nz-BVKLzEeW-SYDS9UuSFw" name="coords" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BVaLzEeW-SYDS9UuSFw" name="colour" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BVqLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BV6LzEeW-SYDS9UuSFw" name="canItMove" visibility="public">
+      <ownedParameter xmi:id="_nz-BWKLzEeW-SYDS9UuSFw" name="currentP" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BWaLzEeW-SYDS9UuSFw" name="pi" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BWqLzEeW-SYDS9UuSFw" name="pf" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BW6LzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BXKLzEeW-SYDS9UuSFw" name="movePiece" visibility="public">
+      <ownedParameter xmi:id="_nz-BXaLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BXqLzEeW-SYDS9UuSFw" name="pfC" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BX6LzEeW-SYDS9UuSFw" name="color" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BYKLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BYaLzEeW-SYDS9UuSFw" name="pieceInTheMiddleH" visibility="public">
+      <ownedParameter xmi:id="_nz-BYqLzEeW-SYDS9UuSFw" name="pi" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BY6LzEeW-SYDS9UuSFw" name="pf" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BZKLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BZaLzEeW-SYDS9UuSFw" name="pieceInTheMiddleV" visibility="public">
+      <ownedParameter xmi:id="_nz-BZqLzEeW-SYDS9UuSFw" name="pi" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BZ6LzEeW-SYDS9UuSFw" name="pf" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BaKLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BaaLzEeW-SYDS9UuSFw" name="fillFromTo" visibility="public">
+      <ownedParameter xmi:id="_nz-BaqLzEeW-SYDS9UuSFw" name="orig" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-Ba6LzEeW-SYDS9UuSFw" name="dest" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BbKLzEeW-SYDS9UuSFw" name="color" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BbaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_nz-BbqLzEeW-SYDS9UuSFw" name="TypeOfPiece">
+      <generalization xmi:id="_nz-Bb6LzEeW-SYDS9UuSFw" general="_nz-BcKLzEeW-SYDS9UuSFw"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_nz-BcKLzEeW-SYDS9UuSFw" name="TypeOfPiece_BlackBlankSpaceWhite__434600133">
+      <ownedLiteral xmi:id="_nz-BcaLzEeW-SYDS9UuSFw" name="&lt;Black>"/>
+      <ownedLiteral xmi:id="_nz-BcqLzEeW-SYDS9UuSFw" name="&lt;BlankSpace>"/>
+      <ownedLiteral xmi:id="_nz-Bc6LzEeW-SYDS9UuSFw" name="&lt;White>"/>
+    </nestedClassifier>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nz-BdKLzEeW-SYDS9UuSFw" name="MingMang" visibility="public">
+    <ownedAttribute xmi:id="_nz-BdaLzEeW-SYDS9UuSFw" name="board" visibility="public" type="_nz-BQaLzEeW-SYDS9UuSFw" association="_nz-CNqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-BdqLzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-Bd6LzEeW-SYDS9UuSFw" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_nz-BeKLzEeW-SYDS9UuSFw" value="new Board()"/>
+    </ownedAttribute>
+    <ownedAttribute xmi:id="_nz-BeaLzEeW-SYDS9UuSFw" name="currentColor" visibility="public" type="_nz-BbqLzEeW-SYDS9UuSFw" association="_nz-COqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-BeqLzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-Be6LzEeW-SYDS9UuSFw" value="1"/>
+      <defaultValue xmi:type="uml:LiteralString" xmi:id="_nz-BfKLzEeW-SYDS9UuSFw" value="&lt;White>"/>
+    </ownedAttribute>
+    <ownedOperation xmi:id="_nz-BfaLzEeW-SYDS9UuSFw" name="MingMang" visibility="public">
+      <ownedParameter xmi:id="_nz-BfqLzEeW-SYDS9UuSFw" type="_nz-BdKLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bf6LzEeW-SYDS9UuSFw" name="reset" visibility="public">
+      <ownedParameter xmi:id="_nz-BgKLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BgaLzEeW-SYDS9UuSFw" name="getBoard" visibility="public">
+      <ownedParameter xmi:id="_nz-BgqLzEeW-SYDS9UuSFw" type="_nz-BQaLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bg6LzEeW-SYDS9UuSFw" name="movePiece" visibility="public">
+      <ownedParameter xmi:id="_nz-BhKLzEeW-SYDS9UuSFw" name="ci" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BhaLzEeW-SYDS9UuSFw" name="cf" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BhqLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bh6LzEeW-SYDS9UuSFw" name="gameOver" visibility="public">
+      <ownedParameter xmi:id="_nz-BiKLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BiaLzEeW-SYDS9UuSFw" name="changePlayer" visibility="public">
+      <ownedParameter xmi:id="_nz-BiqLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bi6LzEeW-SYDS9UuSFw" name="recCheckUp" visibility="public">
+      <ownedParameter xmi:id="_nz-BjKLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BjaLzEeW-SYDS9UuSFw" name="notCurrent" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BjqLzEeW-SYDS9UuSFw" type="_nz-CHKLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bj6LzEeW-SYDS9UuSFw" name="recCheckDown" visibility="public">
+      <ownedParameter xmi:id="_nz-BkKLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BkaLzEeW-SYDS9UuSFw" name="notCurrent" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BkqLzEeW-SYDS9UuSFw" type="_nz-CHKLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bk6LzEeW-SYDS9UuSFw" name="recCheckLeft" visibility="public">
+      <ownedParameter xmi:id="_nz-BlKLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BlaLzEeW-SYDS9UuSFw" name="notCurrent" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BlqLzEeW-SYDS9UuSFw" type="_nz-CHKLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bl6LzEeW-SYDS9UuSFw" name="recCheckRight" visibility="public">
+      <ownedParameter xmi:id="_nz-BmKLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BmaLzEeW-SYDS9UuSFw" name="notCurrent" type="_nz-BbqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BmqLzEeW-SYDS9UuSFw" type="_nz-CHKLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bm6LzEeW-SYDS9UuSFw" name="canConquer" visibility="public">
+      <ownedParameter xmi:id="_nz-BnKLzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BnaLzEeW-SYDS9UuSFw" type="_nz-CH6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BnqLzEeW-SYDS9UuSFw" name="conquer" visibility="public">
+      <ownedParameter xmi:id="_nz-Bn6LzEeW-SYDS9UuSFw" name="coord" type="_nz-CHKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BoKLzEeW-SYDS9UuSFw" name="objectives" type="_nz-CH6LzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BoaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nz-BoqLzEeW-SYDS9UuSFw" name="TestBoard" visibility="public">
+    <ownedOperation xmi:id="_nz-Bo6LzEeW-SYDS9UuSFw" name="assertEqual" visibility="protected">
+      <ownedParameter xmi:id="_nz-BpKLzEeW-SYDS9UuSFw" name="expected" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BpaLzEeW-SYDS9UuSFw" name="actual" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BpqLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bp6LzEeW-SYDS9UuSFw" name="TestAll" visibility="public">
+      <ownedParameter xmi:id="_nz-BqKLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BqaLzEeW-SYDS9UuSFw" name="TestPiecesInTheMid" visibility="public">
+      <ownedParameter xmi:id="_nz-BqqLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Bq6LzEeW-SYDS9UuSFw" name="TestFill" visibility="public">
+      <ownedParameter xmi:id="_nz-BrKLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BraLzEeW-SYDS9UuSFw" name="TestNewBoard" visibility="public">
+      <ownedParameter xmi:id="_nz-BrqLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-Br6LzEeW-SYDS9UuSFw" name="TestMove" visibility="public">
+      <ownedParameter xmi:id="_nz-BsKLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nz-BsaLzEeW-SYDS9UuSFw" name="TestMingMang" visibility="public">
+    <ownedOperation xmi:id="_nz-BsqLzEeW-SYDS9UuSFw" name="assertEqual" visibility="protected">
+      <ownedParameter xmi:id="_nz-Bs6LzEeW-SYDS9UuSFw" name="expected" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BtKLzEeW-SYDS9UuSFw" name="actual" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BtaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BtqLzEeW-SYDS9UuSFw" name="TestAll" visibility="public">
+      <ownedParameter xmi:id="_nz-Bt6LzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BuKLzEeW-SYDS9UuSFw" name="TestGameOver" visibility="public">
+      <ownedParameter xmi:id="_nz-BuaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BuqLzEeW-SYDS9UuSFw" name="TestNewGame" visibility="public">
+      <ownedParameter xmi:id="_nz-Bu6LzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BvKLzEeW-SYDS9UuSFw" name="TestReset" visibility="public">
+      <ownedParameter xmi:id="_nz-BvaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BvqLzEeW-SYDS9UuSFw" name="TestGoodMove" visibility="public">
+      <ownedParameter xmi:id="_nz-Bv6LzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BwKLzEeW-SYDS9UuSFw" name="TestMoveWithPiecesBetween" visibility="public">
+      <ownedParameter xmi:id="_nz-BwaLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-BwqLzEeW-SYDS9UuSFw" name="TestConquer" visibility="public">
+      <ownedParameter xmi:id="_nz-Bw6LzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_nz-BxKLzEeW-SYDS9UuSFw" name="IO" visibility="public">
+    <ownedOperation xmi:id="_nz-BxaLzEeW-SYDS9UuSFw" name="writeval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_nz-BxqLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+      <ownedParameter xmi:id="_nz-Bx6LzEeW-SYDS9UuSFw" name="val" type="_nz-B8qLzEeW-SYDS9UuSFw"/>
+      <ownedTemplateSignature xmi:id="_nz-ByKLzEeW-SYDS9UuSFw" parameter="_nz-ByaLzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:id="_nz-ByaLzEeW-SYDS9UuSFw" default="_nz-ByqLzEeW-SYDS9UuSFw">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_nz-ByqLzEeW-SYDS9UuSFw" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-By6LzEeW-SYDS9UuSFw" name="fwriteval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_nz-BzKLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+      <ownedParameter xmi:id="_nz-BzaLzEeW-SYDS9UuSFw" name="filename" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-BzqLzEeW-SYDS9UuSFw" name="val" type="_nz-B8qLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-Bz6LzEeW-SYDS9UuSFw" name="fdir" type="_nz-B7aLzEeW-SYDS9UuSFw"/>
+      <ownedTemplateSignature xmi:id="_nz-B0KLzEeW-SYDS9UuSFw" parameter="_nz-B0aLzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:id="_nz-B0aLzEeW-SYDS9UuSFw" default="_nz-B0qLzEeW-SYDS9UuSFw">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_nz-B0qLzEeW-SYDS9UuSFw" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B06LzEeW-SYDS9UuSFw" name="freadval" visibility="public" isStatic="true" isQuery="true">
+      <ownedParameter xmi:id="_nz-B1KLzEeW-SYDS9UuSFw" type="_nz-CJaLzEeW-SYDS9UuSFw" direction="return"/>
+      <ownedParameter xmi:id="_nz-B1aLzEeW-SYDS9UuSFw" name="filename" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedTemplateSignature xmi:id="_nz-B1qLzEeW-SYDS9UuSFw" parameter="_nz-B16LzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:id="_nz-B16LzEeW-SYDS9UuSFw" default="_nz-B2KLzEeW-SYDS9UuSFw">
+          <ownedDefault xmi:type="uml:LiteralString" xmi:id="_nz-B2KLzEeW-SYDS9UuSFw" name="p"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B2aLzEeW-SYDS9UuSFw" name="echo" visibility="public">
+      <ownedParameter xmi:id="_nz-B2qLzEeW-SYDS9UuSFw" name="text" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B26LzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B3KLzEeW-SYDS9UuSFw" name="fecho" visibility="public">
+      <ownedParameter xmi:id="_nz-B3aLzEeW-SYDS9UuSFw" name="filename" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B3qLzEeW-SYDS9UuSFw" name="text" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B36LzEeW-SYDS9UuSFw" name="fdir" type="_nz-CLKLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B4KLzEeW-SYDS9UuSFw" type="_nz-B-6LzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B4aLzEeW-SYDS9UuSFw" name="ferror" visibility="public">
+      <ownedParameter xmi:id="_nz-B4qLzEeW-SYDS9UuSFw" type="_nz-CIqLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B46LzEeW-SYDS9UuSFw" name="print" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_nz-B5KLzEeW-SYDS9UuSFw" name="arg" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B5aLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B5qLzEeW-SYDS9UuSFw" name="println" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_nz-B56LzEeW-SYDS9UuSFw" name="arg" type="_nz-B_KLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B6KLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <ownedOperation xmi:id="_nz-B6aLzEeW-SYDS9UuSFw" name="printf" visibility="public" isStatic="true">
+      <ownedParameter xmi:id="_nz-B6qLzEeW-SYDS9UuSFw" name="format" type="_nz-CIqLzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B66LzEeW-SYDS9UuSFw" name="args" type="_nz-CL6LzEeW-SYDS9UuSFw"/>
+      <ownedParameter xmi:id="_nz-B7KLzEeW-SYDS9UuSFw" type="_nz-B-qLzEeW-SYDS9UuSFw" direction="return"/>
+    </ownedOperation>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_nz-B7aLzEeW-SYDS9UuSFw" name="filedirective">
+      <generalization xmi:id="_nz-B7qLzEeW-SYDS9UuSFw" general="_nz-B76LzEeW-SYDS9UuSFw"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_nz-B76LzEeW-SYDS9UuSFw" name="filedirective_appendstart__1004785595">
+      <ownedLiteral xmi:id="_nz-B8KLzEeW-SYDS9UuSFw" name="&lt;append>"/>
+      <ownedLiteral xmi:id="_nz-B8aLzEeW-SYDS9UuSFw" name="&lt;start>"/>
+    </nestedClassifier>
+    <nestedClassifier xmi:type="uml:Class" xmi:id="_nz-B8qLzEeW-SYDS9UuSFw" name="p"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_nz-B86LzEeW-SYDS9UuSFw" name="Basic VDM Types">
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B9KLzEeW-SYDS9UuSFw" name="&lt;Black>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B9aLzEeW-SYDS9UuSFw" name="&lt;BlankSpace>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B9qLzEeW-SYDS9UuSFw" name="&lt;White>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B96LzEeW-SYDS9UuSFw" name="&lt;append>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B-KLzEeW-SYDS9UuSFw" name="&lt;start>"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B-aLzEeW-SYDS9UuSFw" name="nat1"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B-qLzEeW-SYDS9UuSFw" name="Void"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B-6LzEeW-SYDS9UuSFw" name="bool"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B_KLzEeW-SYDS9UuSFw" name="Any"/>
+    <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_nz-B_aLzEeW-SYDS9UuSFw" name="char"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_nz-B_qLzEeW-SYDS9UuSFw" name="Composite VDM Types">
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-B_6LzEeW-SYDS9UuSFw" name="Map&lt;D,R>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_nz-CAKLzEeW-SYDS9UuSFw" name="D,R" parameter="_nz-CAaLzEeW-SYDS9UuSFw _nz-CA6LzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CAaLzEeW-SYDS9UuSFw" parameteredElement="_nz-CAqLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CAqLzEeW-SYDS9UuSFw" name="D" templateParameter="_nz-CAaLzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CA6LzEeW-SYDS9UuSFw" parameteredElement="_nz-CBKLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CBKLzEeW-SYDS9UuSFw" name="R" templateParameter="_nz-CA6LzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CBaLzEeW-SYDS9UuSFw" name="Seq&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_nz-CBqLzEeW-SYDS9UuSFw" name="T" parameter="_nz-CB6LzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CB6LzEeW-SYDS9UuSFw" parameteredElement="_nz-CCKLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CCKLzEeW-SYDS9UuSFw" name="T" templateParameter="_nz-CB6LzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CCaLzEeW-SYDS9UuSFw" name="Set&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_nz-CCqLzEeW-SYDS9UuSFw" name="T" parameter="_nz-CC6LzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CC6LzEeW-SYDS9UuSFw" parameteredElement="_nz-CDKLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CDKLzEeW-SYDS9UuSFw" name="T" templateParameter="_nz-CC6LzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CDaLzEeW-SYDS9UuSFw" name="Product&lt;A,B>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_nz-CDqLzEeW-SYDS9UuSFw" name="A,B" parameter="_nz-CD6LzEeW-SYDS9UuSFw _nz-CEaLzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CD6LzEeW-SYDS9UuSFw" parameteredElement="_nz-CEKLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CEKLzEeW-SYDS9UuSFw" name="A" templateParameter="_nz-CD6LzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CEaLzEeW-SYDS9UuSFw" parameteredElement="_nz-CEqLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CEqLzEeW-SYDS9UuSFw" name="B" templateParameter="_nz-CEaLzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CE6LzEeW-SYDS9UuSFw" name="Optional&lt;T>">
+      <ownedTemplateSignature xmi:type="uml:RedefinableTemplateSignature" xmi:id="_nz-CFKLzEeW-SYDS9UuSFw" name="T" parameter="_nz-CFaLzEeW-SYDS9UuSFw">
+        <ownedParameter xmi:type="uml:ClassifierTemplateParameter" xmi:id="_nz-CFaLzEeW-SYDS9UuSFw" parameteredElement="_nz-CFqLzEeW-SYDS9UuSFw">
+          <ownedParameteredElement xmi:type="uml:Class" xmi:id="_nz-CFqLzEeW-SYDS9UuSFw" name="T" templateParameter="_nz-CFaLzEeW-SYDS9UuSFw"/>
+        </ownedParameter>
+      </ownedTemplateSignature>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_nz-CF6LzEeW-SYDS9UuSFw" name="Binding classes">
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CGKLzEeW-SYDS9UuSFw" name="Map&lt;Seq&lt;nat1>,Board::TypeOfPiece>">
+      <templateBinding xmi:id="_nz-CGaLzEeW-SYDS9UuSFw" signature="_nz-CAKLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CGqLzEeW-SYDS9UuSFw" actual="_nz-CHKLzEeW-SYDS9UuSFw" formal="_nz-CAaLzEeW-SYDS9UuSFw"/>
+        <parameterSubstitution xmi:id="_nz-CG6LzEeW-SYDS9UuSFw" actual="_nz-BbqLzEeW-SYDS9UuSFw" formal="_nz-CA6LzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CHKLzEeW-SYDS9UuSFw" name="Seq&lt;nat1>">
+      <templateBinding xmi:id="_nz-CHaLzEeW-SYDS9UuSFw" signature="_nz-CBqLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CHqLzEeW-SYDS9UuSFw" actual="_nz-B-aLzEeW-SYDS9UuSFw" formal="_nz-CB6LzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CH6LzEeW-SYDS9UuSFw" name="Set&lt;Seq&lt;nat1>>">
+      <templateBinding xmi:id="_nz-CIKLzEeW-SYDS9UuSFw" signature="_nz-CCqLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CIaLzEeW-SYDS9UuSFw" actual="_nz-CHKLzEeW-SYDS9UuSFw" formal="_nz-CC6LzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CIqLzEeW-SYDS9UuSFw" name="Seq&lt;char>">
+      <templateBinding xmi:id="_nz-CI6LzEeW-SYDS9UuSFw" signature="_nz-CBqLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CJKLzEeW-SYDS9UuSFw" actual="_nz-B_aLzEeW-SYDS9UuSFw" formal="_nz-CB6LzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CJaLzEeW-SYDS9UuSFw" name="Product&lt;bool,Optional&lt;p>>">
+      <templateBinding xmi:id="_nz-CJqLzEeW-SYDS9UuSFw" signature="_nz-CDqLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CJ6LzEeW-SYDS9UuSFw" actual="_nz-B-6LzEeW-SYDS9UuSFw" formal="_nz-CD6LzEeW-SYDS9UuSFw"/>
+        <parameterSubstitution xmi:id="_nz-CKKLzEeW-SYDS9UuSFw" actual="_nz-CKaLzEeW-SYDS9UuSFw" formal="_nz-CEaLzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CKaLzEeW-SYDS9UuSFw" name="Optional&lt;p>">
+      <templateBinding xmi:id="_nz-CKqLzEeW-SYDS9UuSFw" signature="_nz-CFKLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CK6LzEeW-SYDS9UuSFw" actual="_nz-B8qLzEeW-SYDS9UuSFw" formal="_nz-CFaLzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CLKLzEeW-SYDS9UuSFw" name="Optional&lt;IO::filedirective>">
+      <templateBinding xmi:id="_nz-CLaLzEeW-SYDS9UuSFw" signature="_nz-CFKLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CLqLzEeW-SYDS9UuSFw" actual="_nz-B7aLzEeW-SYDS9UuSFw" formal="_nz-CFaLzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nz-CL6LzEeW-SYDS9UuSFw" name="Seq&lt;Any>">
+      <templateBinding xmi:id="_nz-CMKLzEeW-SYDS9UuSFw" signature="_nz-CBqLzEeW-SYDS9UuSFw">
+        <parameterSubstitution xmi:id="_nz-CMaLzEeW-SYDS9UuSFw" actual="_nz-B_KLzEeW-SYDS9UuSFw" formal="_nz-CB6LzEeW-SYDS9UuSFw"/>
+      </templateBinding>
+    </packagedElement>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nz-CMqLzEeW-SYDS9UuSFw" visibility="private" memberEnd="_nz-BQqLzEeW-SYDS9UuSFw _nz-CM6LzEeW-SYDS9UuSFw">
+    <ownedEnd xmi:id="_nz-CM6LzEeW-SYDS9UuSFw" name="" type="_nz-BQaLzEeW-SYDS9UuSFw" association="_nz-CMqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-CNKLzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-CNaLzEeW-SYDS9UuSFw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nz-CNqLzEeW-SYDS9UuSFw" visibility="public" memberEnd="_nz-BdaLzEeW-SYDS9UuSFw _nz-CN6LzEeW-SYDS9UuSFw">
+    <ownedEnd xmi:id="_nz-CN6LzEeW-SYDS9UuSFw" name="" type="_nz-BdKLzEeW-SYDS9UuSFw" association="_nz-CNqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-COKLzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-COaLzEeW-SYDS9UuSFw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nz-COqLzEeW-SYDS9UuSFw" visibility="public" memberEnd="_nz-BeaLzEeW-SYDS9UuSFw _nz-CO6LzEeW-SYDS9UuSFw">
+    <ownedEnd xmi:id="_nz-CO6LzEeW-SYDS9UuSFw" name="" type="_nz-BdKLzEeW-SYDS9UuSFw" association="_nz-COqLzEeW-SYDS9UuSFw">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nz-CPKLzEeW-SYDS9UuSFw" value="1"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nz-CPaLzEeW-SYDS9UuSFw" value="1"/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Model>
