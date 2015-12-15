@@ -40,6 +40,7 @@ operations
   	};
   );
 
+
 	pure public getPiece : seq of nat1 ==> TypeOfPiece
 	getPiece(coordsXY) ==
 	(
@@ -47,11 +48,6 @@ operations
 	)	
 	pre validCoords(coordsXY) and board <> {|->};
 	
-	public getBoard : () ==> map seq of nat1 to TypeOfPiece
-	getBoard() ==
-	(
-		return board; 
-	);
 	
 	pure public validCoords : seq of nat1 ==> bool
 	validCoords(coordsXY) ==
@@ -59,6 +55,7 @@ operations
 		return coordsXY in set dom board;
 	)
 	pre len coordsXY = 2;
+	
 	
 	pure public validColour : seq of nat1 * TypeOfPiece ==> bool
 	validColour(coords, colour) ==
@@ -68,157 +65,127 @@ operations
 		else return false;
 	);	
 
-	public canItMove : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
+
+	pure public canItMove : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
 	canItMove(currentP, pi, pf) ==
 	(
 		if board(pi) = currentP and board(pf) = <BlankSpace>
-		then return moveH(pi, pf) or moveV(pi, pf)
-		else return false;
+		then return true;
+		return false;
 	)
-	pre validCoords(pi) and validCoords(pf) and validColour(pi, currentP);
+	pre pieceInTheMiddleH(pi,pf) and pieceInTheMiddleV(pi,pf);
 	
-	public moveV : seq of nat1 * seq of nat1 ==> bool
-	moveV(pi, pf) ==
-	(
-		if pi(1) = pf(1)
-    then
-    (
-     	return pi(2) = (pf(2) - 1) or pi(2) = (pf(2) + 1);
-    )
-   	else return false;
-	)
-	pre validCoords(pi) and validCoords(pf);
-
-
-	public moveH : seq of nat1 * seq of nat1 ==> bool
-	moveH(pi, pf) ==
-	(
-		 if pi(2) = pf(2)
-    then
-    (
-   		return pi(1) = (pf(1) - 1) or pi(1) = (pf(1) + 1);
-    )
-   	else return false;
-	)
-	pre validCoords(pi) and validCoords(pf);
-
-	public movePiece : seq of nat1 * seq of nat1 * TypeOfPiece ==> ()
+	
+	public movePiece : seq of nat1 * seq of nat1 * TypeOfPiece ==> bool
 	movePiece(coord, pfC, color) ==
 	(
 		board(coord) := <BlankSpace>;
 		board(pfC) := color;
-	);
+		return true;
+	)pre validCoords(coord) and validCoords(pfC) and validColour(coord, color) and canItMove(color,coord,pfC);
 	
-	public pieceCannotBeCapture : TypeOfPiece * seq of nat1 * seq of nat1 ==> bool
-	pieceCannotBeCapture(piece, pi, pf) ==
+	
+	pure public pieceInTheMiddleH : seq of nat1 * seq of nat1 ==> bool
+	pieceInTheMiddleH(pi, pf) ==
 	(
-		if board(pi) = piece and board(pf) = <BlankSpace>
+		dcl id : nat;
+		if pi(1) > pf(1)
+		then id := pi(1) - pf(1)
+		else id := pf(1) - pi(1);
+		
+		
+		if pi(2) = pf(2)
+		then return true;
+		
+		if pi(1) = pf(1)
 		then
 		(
-			if pf <> [1,1] or pf <> [8,1] or pf <> [1,8] or pf <> [8,8]
-			then return canItMove(piece, pi, pf);
-			return false
+			while (id <> 0)
+			do
+			(	
+				if(getPiece([pi(1),pi(2)+id]) <> <BlankSpace>)
+				then return false;
+				
+				id := id-1;
+			);
+			return true;
+		) 
+		else return false;
+	) pre validCoords(pi) and validCoords(pf);
+	
+	
+	pure public pieceInTheMiddleV : seq of nat1 * seq of nat1 ==> bool
+	pieceInTheMiddleV(pi, pf) ==
+	(
+		dcl id : nat;
+		if pi(2) > pf(2)
+		then id := pi(2) - pf(2)
+		else id := pf(2) - pi(2);
+	
+		if pi(1) = pf(1) 
+		then return true;
+		
+		if pi(2) = pf(2)
+		then
+		(
+			while (id <> 0)
+			do
+			(	
+				if(getPiece([pi(1)+id,pi(2)]) <> <BlankSpace>)
+				then return false;
+				
+				id := id-1;
+			);
+			return true;
+		) 
+		else return false;
+	) pre validCoords(pi) and validCoords(pf);
+	
+	
+	
+	public fillFromTo : seq of nat1 * seq of nat1 * TypeOfPiece ==> ()
+	fillFromTo(orig, dest, color) ==
+	(
+		dcl org : seq of nat1 := orig;
+		dcl dst : seq of nat1 := dest;
+		if org(1) = dst(1)
+		then
+		(
+			if org(2) > dst(2)
+			then
+			(
+				org(2) := org(2) - 1;
+				while(org(2) <> dst(2))
+				do(board(org) := color;
+					org(2) := org(2) - 1);
+			)
+			else
+			(
+				org(2) := org(2) + 1;
+				while(org(2) <> dst(2))
+				do(board(org) := color;
+					org(2) := org(2) + 1);
+			)
 		)
-		else return false;
-	)
-	pre validCoords(pi) and validCoords(pf) and validColour(pi, piece);
-	
-	public pieceCapturedH : seq of nat1 * seq of nat1 * TypeOfPiece * seq of nat1 ==> ()
-	pieceCapturedH(piece1Coords, piece2Coords, capturedPiece, capturedPieceCoords) ==
-	(
-		dcl cp : TypeOfPiece := capturedPiece;
-		dcl cpCoords : seq of nat1 := capturedPieceCoords;
-		
-		if getPiece(piece1Coords) = getPiece(piece2Coords)
-		then
+		else
 		(
-			if (piece1Coords(1) = piece2Coords(1) and piece1Coords(1) = cpCoords(1) and piece2Coords(1) = cpCoords(1))
+			if org(1) > dst(1)
 			then
 			(
-				if ((piece1Coords(1) = cpCoords(1)-1 or piece2Coords(1) = cpCoords(1)+1) or (piece1Coords(1) = cpCoords(1)-1 or piece2Coords(1) = cpCoords(1)+1))
-				then
-				(
-					cp := getPiece(piece1Coords);
-					
-				) 		
-			) 
-		) 
-		else cp := getPiece(cpCoords);
-	)
-	post getPiece(capturedPieceCoords) = getPiece(piece1Coords) and getPiece(capturedPieceCoords) = getPiece(piece1Coords);
-	
-	
-	public pieceCapturedV : seq of nat1 * seq of nat1 * TypeOfPiece * seq of nat1 ==> ()
-	pieceCapturedV(piece1Coords, piece2Coords, capturedPiece, capturedPieceCoords) ==
-	(
-		dcl cp : TypeOfPiece := capturedPiece;
-		dcl cpCoords : seq of nat1 := capturedPieceCoords;
-		
-		if getPiece(piece1Coords) = getPiece(piece2Coords)
-		then
-		(
-			if (piece1Coords(2) = piece2Coords(2) and piece1Coords(2) = cpCoords(2) and piece2Coords(2) = cpCoords(2))
-			then
+				org(1) := org(1) - 1;
+				while(org(1) <> dst(1))
+				do(board(org) := color;
+					org(1) := org(1) - 1);
+			)
+			else
 			(
-				if ((piece1Coords(2) = cpCoords(2)-1 or piece2Coords(2) = cpCoords(2)+1) or (piece1Coords(2) = cpCoords(2)-1 or piece2Coords(2) = cpCoords(2)+1))
-				then
-				(
-					cp := getPiece(piece1Coords);
-					
-				) 		
-			) 
-		) 
-		else cp := getPiece(cpCoords);
-	)
-	post getPiece(capturedPieceCoords) = getPiece(piece1Coords) and getPiece(capturedPieceCoords) = getPiece(piece1Coords);
-	
-	
-	public pieceWasCapturedH : TypeOfPiece * TypeOfPiece * TypeOfPiece * seq of nat1 * seq of nat1 * seq of nat1 ==> bool
-	pieceWasCapturedH(piece1, piece2, pieceCaptured, piece1Coords, piece2Coords, pieceCapturedCoords) ==
-	(
-		if getPiece(piece1Coords) = getPiece(piece2Coords)
-		then
-		(
-			if (piece1Coords(1) = piece2Coords(1) and piece1Coords(1) = pieceCapturedCoords(1) and piece2Coords(1) = pieceCapturedCoords(1))
-			then
-			(
-				if ((piece1Coords(1) = pieceCapturedCoords(1)-1 or piece2Coords(1) = pieceCapturedCoords(1)+1) or (piece1Coords(1) = pieceCapturedCoords(1)-1 or piece2Coords(1) = pieceCapturedCoords(1)+1))
-				then
-				(
-					return pieceCaptured = piece1 and pieceCaptured = piece2;
-					
-				) else return false;
-				
-			) else return false; 
-		) 
-		else return false;
-	)
-	pre validCoords(piece1Coords) and validColour(piece1Coords, piece1) and validCoords(piece2Coords) and validColour(piece2Coords, piece1) 
-	and validCoords(pieceCapturedCoords) and validColour(pieceCapturedCoords, piece1);
-	
-	
-	public pieceWasCapturedV : TypeOfPiece * TypeOfPiece * TypeOfPiece * seq of nat1 * seq of nat1 * seq of nat1 ==> bool
-	pieceWasCapturedV(piece1, piece2, pieceCaptured, piece1Coords, piece2Coords, pieceCapturedCoords) ==
-	(
-		if getPiece(piece1Coords) = getPiece(piece2Coords)
-		then
-		(
-			if (piece1Coords(2) = piece2Coords(2) and piece1Coords(2) = pieceCapturedCoords(2) and piece2Coords(2) = pieceCapturedCoords(2))
-			then
-			(
-				if ((piece1Coords(2) = pieceCapturedCoords(2)-1 or piece2Coords(2) = pieceCapturedCoords(2)+1) or (piece1Coords(2) = pieceCapturedCoords(2)-1 or piece2Coords(2) = pieceCapturedCoords(2)+1))
-				then
-				(
-					return pieceCaptured = piece1 and pieceCaptured = piece2;
-					
-				) else return false;
-				
-			) else return false; 
-		) 
-		else return false;
-	)
-	pre validCoords(piece1Coords) and validColour(piece1Coords, piece1) and validCoords(piece2Coords) and validColour(piece2Coords, piece1) 
-	and validCoords(pieceCapturedCoords) and validColour(pieceCapturedCoords, piece1);
+				org(1) := org(1) + 1;
+				while(org(1) <> dst(1))
+				do(board(org) := color;
+					org(1) := org(1) + 1);
+			)			
+		)	
+	);
 
 functions
 -- TODO Define functiones here

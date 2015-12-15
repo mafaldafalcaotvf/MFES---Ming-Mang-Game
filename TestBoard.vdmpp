@@ -1,12 +1,7 @@
-class TestBoard
+class TestBoard 
 	
 operations
-	protected assertTrue: bool ==> ()
-	assertTrue(a) == 
-		return 
-	pre a;
-	
-	protected assertEqual: ? * ? ==> ()
+protected assertEqual: ? * ? ==> ()
 	assertEqual(expected, actual) == 
 		if expected <> actual then (
   		IO`print("Actual value (");
@@ -16,24 +11,76 @@ operations
   		IO`println(")\n")
 		)
 	post expected = actual;
- 
 
-	public TestCanItdMove : () ==> ()
-	TestCanItdMove() == 
+	public TestAll : () ==>()
+	TestAll() ==
+	(
+		TestNewBoard();
+		TestMove();
+		TestFill();
+	);
+	
+	public TestFill : () ==>()
+	TestFill()==
 	(
 		dcl board : Board := new Board();
 		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		board.fillFromTo([3,3],[3,5],cpB);
+		assertEqual(board.getPiece([3,4]),cpB);
+	);
+	
+	
+	public TestNewBoard : () ==>()
+	TestNewBoard() ==
+	(
+		dcl board : Board := new Board();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		assertEqual(board.getPiece([1,1]),cpW);
+		assertEqual(board.getPiece([1,7]),cpW);
+		assertEqual(board.getPiece([8,1]),cpW);
 		
-		--board.movePiece([1,1], [3,1], cpW);
-		--board.movePiece([2,6], [4,6], cpW);
-		--board.movePiece([5,8], [6,8], cpW);
-		--board.movePiece([6,8], [2,8], cpW);
+		assertEqual(board.getPiece([1,8]),cpB);
+		assertEqual(board.getPiece([8,8]),cpB);
+		assertEqual(board.getPiece([8,2]),cpB);
 		
+		assertEqual(board.getPiece([2,2]),cpBS);
+		assertEqual(board.getPiece([4,4]),cpBS);
+		assertEqual(board.getPiece([6,6]),cpBS);
 		
-		assertTrue(board.canItMove(cpW, [1,1], [3,1]));
-		assertTrue(board.canItMove(cpW, [2,6], [4,6]));
-		assertTrue(board.canItMove(cpW, [5,8], [6,8]));
-		assertTrue(board.canItMove(cpW, [6,8], [2,8]));
+	);
+
+
+	public TestMove : () ==> ()
+	TestMove() == 
+	(
+		dcl board : Board := new Board();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl aux : bool ;
+		--Move Right
+		aux := board.movePiece([1,2], [2,2], cpW);
+		assertEqual(board.getPiece([2,2]),cpW);
+		assertEqual(board.getPiece([1,2]),cpBS);
+		
+		--Move Left
+		aux := board.movePiece([8,7], [7,7], cpB);
+		assertEqual(board.getPiece([7,7]),cpB);
+		assertEqual(board.getPiece([8,7]),cpBS);
+		
+		--Move Down
+		aux := board.movePiece([5,1], [5,2], cpW);
+		assertEqual(board.getPiece([5,2]),cpW);
+		assertEqual(board.getPiece([5,1]),cpBS);
+		
+		--Move Up
+		aux := board.movePiece([3,8], [3,7], cpB);
+		assertEqual(board.getPiece([3,7]),cpB);
+		assertEqual(board.getPiece([3,8]),cpBS);	
 	);
 
 
