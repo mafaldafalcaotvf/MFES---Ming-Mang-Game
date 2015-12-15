@@ -1,0 +1,250 @@
+class MingMang
+types
+
+
+values
+-- TODO Define values here
+instance variables
+
+	private board : Board := new Board();
+	public currentColor : Board`TypeOfPiece := <White>;
+	inv currentColor <> <BlankSpace>;
+
+operations
+
+	public MingMang : () ==> MingMang
+	MingMang() ==
+	(
+		board := new Board();
+		currentColor := <White>;
+	);
+	
+	public reset : () ==> ()
+	reset() ==
+	(
+		board.reset();
+		currentColor := <White>;
+	);
+	
+	public getBoard : () ==> Board
+	getBoard() ==
+	(
+		return board;
+	);
+	
+	
+	public movePiece : seq of nat1 * seq of nat1 ==> bool
+	movePiece(ci, cf) ==
+	(	
+	  dcl temp : set of seq of nat1 :={}; 
+		if currentColor = <White>
+		then 
+		(
+					if board.movePiece(ci, cf, currentColor) 
+					then 
+					(
+					temp := canConquer(cf);
+					conquer(cf,temp);
+					changePlayer();
+					return true;)
+					else return false;
+			 )	 
+		else (
+				if board.movePiece(ci, cf, currentColor)
+				then(
+			  temp := canConquer(cf);
+				conquer(cf,temp);
+				changePlayer();
+				return true;)
+				else return false;
+					)
+
+	);
+	
+	public changePlayer : () ==> ()
+	changePlayer() ==
+	(
+		if currentColor = <White>
+			then currentColor := <Black>
+			else currentColor := <White>
+	);
+	public recCheckUp : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+	recCheckUp(coord, notCurrent) ==
+	(	
+		dcl piece : seq of nat1 := coord;
+		dcl fail : seq of nat1 := [10, 10];
+			
+		if board.getPiece(coord) = currentColor
+		then return coord
+				
+		else if coord(1) = 1 or board.getPiece(coord) = <BlankSpace>
+		then return fail
+		
+		else if board.getPiece(coord) = notCurrent
+		then(
+			piece(1) := piece(1) - 1;
+			return recCheckUp(piece, notCurrent)
+		)	
+		else return fail;
+	);
+	
+	public recCheckDown : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+	recCheckDown(coord, notCurrent) ==
+	(	
+		dcl piece : seq of nat1 := coord;
+		dcl fail : seq of nat1 := [10, 10];
+			
+		if board.getPiece(coord) = currentColor
+		then return coord
+		
+		else if coord(1) = 8 or board.getPiece(coord) = <BlankSpace>
+		then return fail
+		
+		else if board.getPiece(coord) = notCurrent
+		then(
+			piece(1) := piece(1) + 1;
+			return recCheckDown(piece, notCurrent)
+		)	
+		else return fail;
+	);
+	
+	public recCheckLeft : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+	recCheckLeft(coord, notCurrent) ==
+	(	
+		dcl piece : seq of nat1 := coord;
+		dcl fail : seq of nat1 := [10, 10];
+			
+		if board.getPiece(coord) = currentColor
+		then return coord
+		
+		else if coord(2) = 1 or board.getPiece(coord) = <BlankSpace>
+		then return fail
+		
+		else if board.getPiece(coord) = notCurrent
+		then(
+			piece(2) := piece(2) - 1;
+			return recCheckDown(piece, notCurrent);
+		)	
+		else return fail;
+	);
+	
+	public recCheckRight : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+	recCheckRight(coord, notCurrent) ==
+	(	
+		dcl piece : seq of nat1 := coord;
+		dcl fail : seq of nat1 := [10, 10];
+			
+		if board.getPiece(coord) = currentColor
+		then return coord
+		
+		else if coord(2) = 8 or board.getPiece(coord) = <BlankSpace>
+		then return fail
+		
+		else if board.getPiece(coord) = notCurrent
+		then(
+			piece(2) := piece(2) + 1;
+			return recCheckDown(piece, notCurrent);
+		)	
+		else return fail;
+	);
+	
+	
+	public canConquer : seq of nat1 ==> set of seq of nat1
+	canConquer(coord) ==
+	(	
+		dcl notCurrent : Board`TypeOfPiece := <BlankSpace>;
+		dcl fail : seq of nat1 := [10, 10];
+		dcl ret : set of seq of nat1 := {};
+		dcl addPiece : seq of nat1 := [];
+		dcl piece : seq of nat1 := coord;	
+		
+		
+		
+		if currentColor = <White>
+		then notCurrent := <Black>
+		else notCurrent := <White>;
+		
+
+		if piece(1) > 1
+		then(
+			piece(1) := piece(1) - 1;
+			if board.getPiece(piece) = notCurrent
+			then( 
+				addPiece := recCheckUp(piece, notCurrent);
+				if addPiece <> fail
+				then(
+					ret := ret union {addPiece};
+				 )
+			)
+			else skip;
+			piece(1) := piece(1) + 1;
+		)
+		else
+			skip;
+			
+		if piece(1) < 8
+		then(
+			piece(1) := piece(1) + 1;
+			if board.getPiece(piece) = notCurrent
+			then(
+				addPiece := recCheckDown(piece, notCurrent);
+				if addPiece <> fail
+				then (
+					ret := ret union {addPiece};
+				 )
+			)
+			else skip;
+			piece(1) := piece(1) - 1;
+		)
+		else skip;
+		
+		if piece(2) > 1
+		then(
+			piece(2) := piece(2) - 1;
+			if board.getPiece(piece) = notCurrent
+			then(
+				addPiece := recCheckLeft(piece, notCurrent);
+				if addPiece <> fail
+				then (
+					ret := ret union {addPiece};
+				 )
+			)
+			else skip;
+			piece(2) := piece(2) + 1;
+		) 
+		else skip; 
+		
+		if piece(2) < 8
+		then(
+			piece(2) := piece(2) + 1;
+			if board.getPiece(piece) = notCurrent
+			then(
+				addPiece := recCheckRight(piece, notCurrent);
+				if addPiece <> fail
+				then (
+					ret := ret union {addPiece};
+				 )
+			)
+			else skip;
+			piece(2) := piece(2) - 1
+		)
+		else skip;
+	
+	return ret;
+	);
+	
+	
+	public conquer : seq of nat1 * set of seq of nat1 ==> ()
+	conquer(coord, objectives) ==
+	(
+		for all p in set objectives do(
+			board.fillFromTo(coord,p,currentColor);
+			)
+		
+	);
+
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end MingMang

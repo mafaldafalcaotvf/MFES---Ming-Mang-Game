@@ -1,0 +1,323 @@
+\begin{vdmpp}[breaklines=true]
+class MingMang
+types
+
+
+values
+-- TODO Define values here
+instance variables
+
+ private board : Board := new Board();
+ public currentColor : Board`TypeOfPiece := <White>;
+ inv currentColor <> <BlankSpace>;
+
+operations
+
+ public MingMang : () ==> MingMang
+(*@
+\label{MingMang:16}
+@*)
+ MingMang() ==
+ (
+  board := new Board();
+  currentColor := <White>;
+ );
+ 
+ public reset : () ==> ()
+ reset() ==
+(*@
+\label{reset:24}
+@*)
+ (
+  board.reset();
+  currentColor := <White>;
+ );
+ 
+ public getBoard : () ==> Board
+(*@
+\label{getBoard:30}
+@*)
+ getBoard() ==
+(*@
+\label{movePiece:31}
+@*)
+ (
+  return board;
+ );
+ 
+ 
+ public movePiece : seq of nat1 * seq of nat1 ==> bool
+ movePiece(ci, cf) ==
+ ( 
+   dcl temp : set of seq of nat1 :={}; 
+  if currentColor = <White>
+  then 
+  (
+(*@
+\label{createDestC:43}
+@*)
+     if board.movePiece(ci, cf, currentColor) 
+     then 
+     (
+     temp := canConquer(cf);
+     conquer(cf,temp);
+     changePlayer();
+     return true;)
+     else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
+    )  
+  else (
+    if board.movePiece(ci, cf, currentColor)
+(*@
+\label{canConquer:54}
+@*)
+    then(
+     temp := canConquer(cf);
+    conquer(cf,temp);
+    changePlayer();
+    return true;)
+    else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{false}@*);
+     )
+(*@
+\label{changePlayer:61}
+@*)
+
+ );
+ 
+ public changePlayer : () ==> ()
+ changePlayer() ==
+ (
+  if currentColor = <White>
+   then currentColor := <Black>
+   else currentColor := <White>
+ );
+ public recCheckUp : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+ recCheckUp(coord, notCurrent) ==
+ ( 
+  dcl piece : seq of nat1 := coord;
+  dcl fail : seq of nat1 := [10, 10];
+   
+  if board.getPiece(coord) = currentColor
+  then return coord
+    
+  else if coord(1) = 1 or board.getPiece(coord) = <BlankSpace>
+  then return fail
+  
+  else if board.getPiece(coord) = notCurrent
+  then(
+   piece(1) := piece(1) - 1;
+   return recCheckUp(piece, notCurrent)
+  ) 
+  else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
+ );
+ 
+ public recCheckDown : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+ recCheckDown(coord, notCurrent) ==
+ ( 
+  dcl piece : seq of nat1 := coord;
+  dcl fail : seq of nat1 := [10, 10];
+   
+  if board.getPiece(coord) = currentColor
+  then return coord
+  
+  else if coord(1) = 8 or board.getPiece(coord) = <BlankSpace>
+  then return fail
+  
+  else if board.getPiece(coord) = notCurrent
+  then(
+   piece(1) := piece(1) + 1;
+   return recCheckDown(piece, notCurrent)
+  ) 
+  else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
+ );
+ 
+ public recCheckLeft : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+ recCheckLeft(coord, notCurrent) ==
+ ( 
+  dcl piece : seq of nat1 := coord;
+  dcl fail : seq of nat1 := [10, 10];
+   
+  if board.getPiece(coord) = currentColor
+  then (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{coord}@*)
+  
+  else if coord(2) = 1 or board.getPiece(coord) = <BlankSpace>
+  then return fail
+(*@
+\label{recCheckUp:122}
+@*)
+  
+  else if board.getPiece(coord) = notCurrent
+  then(
+   piece(2) := piece(2) - 1;
+   return recCheckDown(piece, notCurrent);
+  ) 
+  else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
+ );
+ 
+ public recCheckRight : seq of nat1 * Board`TypeOfPiece ==> seq of nat1
+ recCheckRight(coord, notCurrent) ==
+ ( 
+  dcl piece : seq of nat1 := coord;
+  dcl fail : seq of nat1 := [10, 10];
+   
+  if board.getPiece(coord) = currentColor
+  then (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{coord}@*)
+  
+  else if coord(2) = 8 or board.getPiece(coord) = <BlankSpace>
+(*@
+\label{recCheckDown:141}
+@*)
+  then (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*)
+  
+  else if board.getPiece(coord) = notCurrent
+  then(
+   piece(2) := piece(2) + 1;
+   return recCheckDown(piece, notCurrent);
+  ) 
+  else (*@\vdmnotcovered{return}@*) (*@\vdmnotcovered{fail}@*);
+ );
+ 
+ 
+ public canConquer : seq of nat1 ==> set of seq of nat1
+ canConquer(coord) ==
+ ( 
+  dcl notCurrent : Board`TypeOfPiece := <BlankSpace>;
+  dcl fail : seq of nat1 := [10, 10];
+  dcl ret : set of seq of nat1 := {};
+  dcl addPiece : seq of nat1 := [];
+  dcl piece : seq of nat1 := coord; 
+(*@
+\label{recCheckLeft:160}
+@*)
+  
+  
+  
+  if currentColor = <White>
+  then notCurrent := <Black>
+  else notCurrent := <White>;
+  
+
+  if piece(1) > 1
+  then(
+   piece(1) := piece(1) - 1;
+   if board.getPiece(piece) = notCurrent
+   then( 
+    addPiece := recCheckUp(piece, notCurrent);
+    if addPiece <> fail
+    then(
+     ret := ret union {addPiece};
+     )
+   )
+(*@
+\label{recCheckRight:179}
+@*)
+   else skip;
+   piece(1) := piece(1) + 1;
+  )
+  else
+   (*@\vdmnotcovered{skip}@*);
+   
+  if piece(1) < 8
+  then(
+   piece(1) := piece(1) + 1;
+   if board.getPiece(piece) = notCurrent
+   then(
+    addPiece := recCheckDown(piece, notCurrent);
+    if addPiece <> fail
+    then (
+     ret := ret union {addPiece};
+     )
+   )
+   else skip;
+   piece(1) := piece(1) - 1;
+  )
+  else (*@\vdmnotcovered{skip}@*);
+  
+  if piece(2) > 1
+  then(
+   piece(2) := piece(2) - 1;
+   if board.getPiece(piece) = notCurrent
+   then(
+    addPiece := recCheckLeft(piece, notCurrent);
+    if addPiece <> fail
+    then (
+     ret := ret union {addPiece};
+     )
+   )
+   else skip;
+   piece(2) := piece(2) + 1;
+  ) 
+  else (*@\vdmnotcovered{skip}@*); 
+  
+  if piece(2) < 8
+  then(
+   piece(2) := piece(2) + 1;
+   if board.getPiece(piece) = notCurrent
+   then(
+    addPiece := recCheckRight(piece, notCurrent);
+    if addPiece <> fail
+    then (
+     ret := ret union {addPiece};
+     )
+   )
+   else skip;
+   piece(2) := piece(2) - 1
+  )
+  else (*@\vdmnotcovered{skip}@*);
+(*@
+\label{conquer:232}
+@*)
+ 
+ return ret;
+ );
+ 
+ 
+ public conquer : seq of nat1 * set of seq of nat1 ==> ()
+ conquer(coord, objectives) ==
+ (
+  for all p in set objectives do(
+   board.fillFromTo(coord,p,currentColor);
+   )
+  
+ );
+
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end MingMang
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[MingMang:16]{MingMang} & 16&100.0\% & 5 \\
+\hline
+\hyperref[canConquer:54]{canConquer} & 54&97.8\% & 17 \\
+\hline
+\hyperref[changePlayer:61]{changePlayer} & 61&100.0\% & 17 \\
+\hline
+\hyperref[conquer:232]{conquer} & 232&100.0\% & 17 \\
+\hline
+\hyperref[createDestC:43]{createDestC} & 43&88.2\% & 6 \\
+\hline
+\hyperref[getBoard:30]{getBoard} & 30&100.0\% & 4 \\
+\hline
+\hyperref[movePiece:31]{movePiece} & 31&90.9\% & 17 \\
+\hline
+\hyperref[recCheckDown:141]{recCheckDown} & 141&95.5\% & 10 \\
+\hline
+\hyperref[recCheckLeft:160]{recCheckLeft} & 160&91.1\% & 4 \\
+\hline
+\hyperref[recCheckRight:179]{recCheckRight} & 179&86.6\% & 2 \\
+\hline
+\hyperref[recCheckUp:122]{recCheckUp} & 122&95.5\% & 4 \\
+\hline
+\hyperref[reset:24]{reset} & 24&100.0\% & 4 \\
+\hline
+\hline
+MingMang.vdmpp & & 95.0\% & 107 \\
+\hline
+\end{longtable}
+

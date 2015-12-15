@@ -1,0 +1,191 @@
+\begin{vdmpp}[breaklines=true]
+class TestMingMang
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+operations
+(*@
+\label{assertEqual:9}
+@*)
+protected assertEqual: ? * ? ==> ()
+ assertEqual(expected, actual) == 
+  if expected <> actual then (*@\vdmnotcovered{(}@*)
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{"Actual value ("}@*));
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{actual}@*)); 
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{") different from expected ("}@*));
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{expected}@*));
+    (*@\vdmnotcovered{IO`println}@*)((*@\vdmnotcovered{")\textbackslash n"}@*))
+  )
+ post expected = actual;
+
+(*@
+\label{TestAll:20}
+@*)
+ public TestAll : () ==>()
+ TestAll() ==
+ (
+  dcl sta : TestBoard := new TestBoard();
+  sta.TestAll();
+  TestNewGame();
+  TestGoodMove();
+(*@
+\label{TestNewGame:27}
+@*)
+  TestMoveWithPiecesBetween();
+  TestConquer();
+  TestReset();
+ );
+ 
+ public TestNewGame : () ==>()
+ TestNewGame() ==
+ (
+  dcl game : MingMang := new MingMang();
+  dcl gameBoard : Board := game.getBoard();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  assertEqual(gameBoard.getPiece([1,1]),cpW);
+(*@
+\label{TestGoodMove:41}
+@*)
+(*@
+\label{TestReset:41}
+@*)
+  assertEqual(gameBoard.getPiece([1,7]),cpW);
+  assertEqual(gameBoard.getPiece([8,1]),cpW);
+  
+ );
+ 
+ public TestReset : () ==>()
+ TestReset() ==
+ (
+  dcl game : MingMang := new MingMang();
+  game.reset();
+ );
+ 
+ 
+ public TestGoodMove : () ==>()
+ TestGoodMove() ==
+ (
+  dcl game : MingMang := new MingMang(); 
+  dcl gameBoard : Board := game.getBoard();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
+  
+(*@
+\label{TestMoveWithPiecesBetween:64}
+@*)
+  aux := game.movePiece([1,2],[2,2]);
+  assertEqual(gameBoard.getPiece([2,2]),cpW);
+  
+  aux := game.movePiece([8,2],[7,2]);
+  assertEqual(gameBoard.getPiece([7,2]),cpB);
+  
+  aux := game.movePiece([5,1],[5,2]);
+  assertEqual(gameBoard.getPiece([5,2]),cpW);
+  
+  aux := game.movePiece([6,8],[6,7]);
+  assertEqual(gameBoard.getPiece([6,7]),cpB);
+ );
+ 
+ public TestMoveWithPiecesBetween : () ==> ()
+ TestMoveWithPiecesBetween() ==
+(*@
+\label{TestCanConquer:79}
+@*)
+ (
+  dcl game : MingMang := new MingMang(); 
+  dcl gameBoard : Board := game.getBoard();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
+  
+  aux := game.movePiece([1,4],[5,4]);
+  --assertEqual(game.movePiece([5,8],[5,2]),false);
+(*@
+\label{TestConquer:89}
+@*)
+ );
+ 
+ 
+ public TestConquer : () ==> ()
+ TestConquer() ==
+ (
+  dcl game : MingMang := new MingMang(); 
+  dcl gameBoard : Board := game.getBoard();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
+  
+  
+  aux := game.movePiece([3,1],[3,3]);
+  aux := game.movePiece([8,4],[3,4]);
+  aux := game.movePiece([1,5],[3,5]);
+ 
+  assertEqual(gameBoard.getPiece([3,4]),cpW);
+  
+  game.reset();
+  
+  aux := game.movePiece([4,1],[4,5]);
+  aux := game.movePiece([5,8],[5,5]);
+  aux := game.movePiece([6,1],[6,5]);
+  
+  assertEqual(gameBoard.getPiece([5,5]), cpW);
+  
+  game.reset();
+  
+  aux := game.movePiece([1,6],[4,6]);
+  aux := game.movePiece([8,5],[4,5]);
+  aux := game.movePiece([1,4],[4,4]);
+    
+  assertEqual(gameBoard.getPiece([4,5]), cpW);
+  
+  game.reset();
+  
+  aux := game.movePiece([7,1],[7,2]);
+  aux := game.movePiece([6,8],[6,2]);
+  aux := game.movePiece([5,1],[5,2]);  
+  assertEqual(gameBoard.getPiece([7,2]), cpB); 
+  assertEqual(gameBoard.getPiece([6,2]), cpB); 
+  assertEqual(gameBoard.getPiece([5,2]), cpW);  
+ );
+ 
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end TestMingMang
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[TestAll:20]{TestAll} & 20&100.0\% & 1 \\
+\hline
+\hyperref[TestCanConquer:79]{TestCanConquer} & 79&100.0\% & 1 \\
+\hline
+\hyperref[TestConquer:89]{TestConquer} & 89&100.0\% & 1 \\
+\hline
+\hyperref[TestGoodMove:41]{TestGoodMove} & 41&100.0\% & 1 \\
+\hline
+\hyperref[TestMoveWithPiecesBetween:64]{TestMoveWithPiecesBetween} & 64&100.0\% & 1 \\
+\hline
+\hyperref[TestNewGame:27]{TestNewGame} & 27&100.0\% & 1 \\
+\hline
+\hyperref[TestReset:41]{TestReset} & 41&100.0\% & 1 \\
+\hline
+\hyperref[assertEqual:9]{assertEqual} & 9&38.8\% & 13 \\
+\hline
+\hline
+TestMingMang.vdmpp & & 96.4\% & 20 \\
+\hline
+\end{longtable}
+

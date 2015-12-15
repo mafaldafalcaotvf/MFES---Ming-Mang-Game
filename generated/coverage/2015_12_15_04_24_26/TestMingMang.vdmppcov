@@ -1,0 +1,138 @@
+class TestMingMang
+types
+-- TODO Define types here
+values
+-- TODO Define values here
+instance variables
+-- TODO Define instance variables here
+operations
+protected assertEqual: ? * ? ==> ()
+	assertEqual(expected, actual) == 
+		if expected <> actual then (
+  		IO`print("Actual value (");
+  		IO`print(actual); 
+  		IO`print(") different from expected (");
+  		IO`print(expected);
+  		IO`println(")\n")
+		)
+	post expected = actual;
+
+	public TestAll : () ==>()
+	TestAll() ==
+	(
+		dcl sta : TestBoard := new TestBoard();
+		sta.TestAll();
+		TestNewGame();
+		TestGoodMove();
+		TestMoveWithPiecesBetween();
+		TestConquer();
+		TestReset();
+	);
+	
+	public TestNewGame : () ==>()
+	TestNewGame() ==
+	(
+		dcl game : MingMang := new MingMang();
+		dcl gameBoard : Board := game.getBoard();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		assertEqual(gameBoard.getPiece([1,1]),cpW);
+		assertEqual(gameBoard.getPiece([1,7]),cpW);
+		assertEqual(gameBoard.getPiece([8,1]),cpW);
+		
+	);
+	
+	public TestReset : () ==>()
+	TestReset() ==
+	(
+		dcl game : MingMang := new MingMang();
+		game.reset();
+	);
+	
+	
+	public TestGoodMove : () ==>()
+	TestGoodMove() ==
+	(
+		dcl game : MingMang := new MingMang(); 
+		dcl gameBoard : Board := game.getBoard();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl aux : bool ;
+		
+		aux := game.movePiece([1,2],[2,2]);
+		assertEqual(gameBoard.getPiece([2,2]),cpW);
+		
+		aux := game.movePiece([8,2],[7,2]);
+		assertEqual(gameBoard.getPiece([7,2]),cpB);
+		
+		aux := game.movePiece([5,1],[5,2]);
+		assertEqual(gameBoard.getPiece([5,2]),cpW);
+		
+		aux := game.movePiece([6,8],[6,7]);
+		assertEqual(gameBoard.getPiece([6,7]),cpB);
+	);
+	
+	public TestMoveWithPiecesBetween : () ==> ()
+	TestMoveWithPiecesBetween() ==
+	(
+		dcl game : MingMang := new MingMang(); 
+		dcl gameBoard : Board := game.getBoard();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl aux : bool ;
+		
+		aux := game.movePiece([1,4],[5,4]);
+		--assertEqual(game.movePiece([5,8],[5,2]),false);
+	);
+	
+	
+	public TestConquer : () ==> ()
+	TestConquer() ==
+	(
+		dcl game : MingMang := new MingMang(); 
+		dcl gameBoard : Board := game.getBoard();
+		dcl cpW : Board`TypeOfPiece := <White>;
+		dcl cpB : Board`TypeOfPiece := <Black>;
+		dcl aux : bool ;
+		
+		
+		aux := game.movePiece([3,1],[3,3]);
+		aux := game.movePiece([8,4],[3,4]);
+		aux := game.movePiece([1,5],[3,5]);
+	
+		assertEqual(gameBoard.getPiece([3,4]),cpW);
+		
+		game.reset();
+		
+		aux := game.movePiece([4,1],[4,5]);
+		aux := game.movePiece([5,8],[5,5]);
+		aux := game.movePiece([6,1],[6,5]);
+		
+		assertEqual(gameBoard.getPiece([5,5]), cpW);
+		
+		game.reset();
+		
+		aux := game.movePiece([1,6],[4,6]);
+		aux := game.movePiece([8,5],[4,5]);
+		aux := game.movePiece([1,4],[4,4]);
+				
+		assertEqual(gameBoard.getPiece([4,5]), cpW);
+		
+		game.reset();
+		
+		aux := game.movePiece([7,1],[7,2]);
+		aux := game.movePiece([6,8],[6,2]);
+		aux := game.movePiece([5,1],[5,2]);		
+		assertEqual(gameBoard.getPiece([7,2]), cpB);	
+		assertEqual(gameBoard.getPiece([6,2]), cpB);	
+		assertEqual(gameBoard.getPiece([5,2]), cpW);		
+	);
+	
+functions
+-- TODO Define functiones here
+traces
+-- TODO Define Combinatorial Test Traces here
+end TestMingMang

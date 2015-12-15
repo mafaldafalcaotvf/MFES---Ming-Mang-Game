@@ -1,0 +1,181 @@
+\begin{vdmpp}[breaklines=true]
+class TestBoard 
+ 
+operations
+(*@
+\label{TestNewBoard:4}
+@*)
+(*@
+\label{TestBoard:4}
+@*)
+(*@
+\label{assertTrue:4}
+@*)
+(*@
+\label{assertTrue:4}
+@*)
+protected assertEqual: ? * ? ==> ()
+ assertEqual(expected, actual) == 
+  if expected <> actual then (*@\vdmnotcovered{(}@*)
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{"Actual value ("}@*));
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{actual}@*)); 
+(*@
+\label{assertEqual:9}
+@*)
+(*@
+\label{assertEqual:9}
+@*)
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{") different from expected ("}@*));
+    (*@\vdmnotcovered{IO`print}@*)((*@\vdmnotcovered{expected}@*));
+    (*@\vdmnotcovered{IO`println}@*)((*@\vdmnotcovered{")\textbackslash n"}@*))
+  )
+ post expected = actual;
+
+(*@
+\label{TestAll:15}
+@*)
+ public TestAll : () ==>()
+ TestAll() ==
+ (
+  TestNewBoard();
+  TestMove();
+  TestFill();
+(*@
+\label{TestCanItdMove:21}
+@*)
+(*@
+\label{TestCanItdMove:21}
+@*)
+  TestPiecesInTheMid();
+ );
+(*@
+\label{TestFill:23}
+@*)
+ 
+(*@
+\label{TestPiecesInTheMid:24}
+@*)
+ public TestPiecesInTheMid : () ==> ()
+ TestPiecesInTheMid()==
+(*@
+\label{TestMove:26}
+@*)
+ (
+  dcl board : Board := new Board();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
+  aux := board.movePiece([1,3], [3,3], cpW);
+  assertEqual(board.pieceInTheMiddleV([3,1],[3,4]),true);
+  --assertEquals(pieceInTheMiddleV(),false);
+  --board.movePiece([8,7], [7,7], cpB);
+ );
+ 
+ 
+ public TestFill : () ==>()
+ TestFill()==
+ (
+  dcl board : Board := new Board();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  board.fillFromTo([3,3],[3,5],cpB);
+  assertEqual(board.getPiece([3,4]),cpB);
+ );
+ 
+ 
+ public TestNewBoard : () ==>()
+ TestNewBoard() ==
+ (
+  dcl board : Board := new Board();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  assertEqual(board.getPiece([1,1]),cpW);
+  assertEqual(board.getPiece([1,7]),cpW);
+  assertEqual(board.getPiece([8,1]),cpW);
+  
+  assertEqual(board.getPiece([1,8]),cpB);
+  assertEqual(board.getPiece([8,8]),cpB);
+  assertEqual(board.getPiece([8,2]),cpB);
+  
+  assertEqual(board.getPiece([2,2]),cpBS);
+  assertEqual(board.getPiece([4,4]),cpBS);
+  assertEqual(board.getPiece([6,6]),cpBS);
+  
+ );
+
+
+ public TestMove : () ==> ()
+ TestMove() == 
+ (
+  dcl board : Board := new Board();
+  dcl cpW : Board`TypeOfPiece := <White>;
+  dcl cpBS : Board`TypeOfPiece := <BlankSpace>;
+  dcl cpB : Board`TypeOfPiece := <Black>;
+  dcl aux : bool ;
+  --Move Right
+  aux := board.movePiece([1,2], [2,2], cpW);
+  assertEqual(board.getPiece([2,2]),cpW);
+  assertEqual(board.getPiece([1,2]),cpBS);
+  
+  --Move Left
+  aux := board.movePiece([8,7], [7,7], cpB);
+  assertEqual(board.getPiece([7,7]),cpB);
+  assertEqual(board.getPiece([8,7]),cpBS);
+  
+  --Move Down
+  aux := board.movePiece([5,1], [5,2], cpW);
+  assertEqual(board.getPiece([5,2]),cpW);
+  assertEqual(board.getPiece([5,1]),cpBS);
+  
+  --Move Up
+  aux := board.movePiece([3,8], [3,7], cpB);
+  assertEqual(board.getPiece([3,7]),cpB);
+  assertEqual(board.getPiece([3,8]),cpBS); 
+  
+  
+  
+  
+  
+ );
+
+
+end TestBoard
+\end{vdmpp}
+\bigskip
+\begin{longtable}{|l|r|r|r|}
+\hline
+Function or operation & Line & Coverage & Calls \\
+\hline
+\hline
+\hyperref[TestAll:15]{TestAll} & 15&100.0\% & 1 \\
+\hline
+\hyperref[TestBoard:4]{TestBoard} & 4&30.7\% & 19 \\
+\hline
+\hyperref[TestCanItdMove:21]{TestCanItdMove} & 21&100.0\% & 1 \\
+\hline
+\hyperref[TestCanItdMove:21]{TestCanItdMove} & 21&100.0\% & 1 \\
+\hline
+\hyperref[TestFill:23]{TestFill} & 23&100.0\% & 1 \\
+\hline
+\hyperref[TestMove:26]{TestMove} & 26&100.0\% & 1 \\
+\hline
+\hyperref[TestNewBoard:4]{TestNewBoard} & 4&100.0\% & 1 \\
+\hline
+\hyperref[TestPiecesInTheMid:24]{TestPiecesInTheMid} & 24&100.0\% & 1 \\
+\hline
+\hyperref[assertEqual:9]{assertEqual} & 9&50.0\% & 0 \\
+\hline
+\hyperref[assertEqual:9]{assertEqual} & 9&38.8\% & 19 \\
+\hline
+\hyperref[assertTrue:4]{assertTrue} & 4&57.1\% & 19 \\
+\hline
+\hyperref[assertTrue:4]{assertTrue} & 4&57.1\% & 19 \\
+\hline
+\hline
+TestBoard.vdmpp & & 95.4\% & 83 \\
+\hline
+\end{longtable}
+
